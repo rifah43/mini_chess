@@ -1,0 +1,36 @@
+const BOARD_WIDTH = 5;
+const BOARD_LENGTH = 6;
+const [PLAYER_PAWN1, PLAYER_PAWN2, PLAYER_PAWN3, PLAYER_PAWN4, PLAYER_PAWN5] = ['p_pa1', 'p_pa2', 'p_pa3', 'p_pa4', 'p_pa5'];
+const [COMPUTER_PAWN1, COMPUTER_PAWN2, COMPUTER_PAWN3, COMPUTER_PAWN4, COMPUTER_PAWN5] = ['c_pa1', 'c_pa2', 'c_pa3', 'c_pa4', 'c_pa5'];
+const [PLAYER_ROOK, COMPUTER_ROOK] = ['p_ro', 'c_ro'];
+const [PLAYER_BISHOP, COMPUTER_BISHOP] = ['p_bi', 'c_bi'];
+const [PLAYER_KING, COMPUTER_KING] = ['p_ki', 'c_ki'];
+const [PLAYER_QUEEN, COMPUTER_QUEEN] = ['p_qu', 'c_qu'];
+const [PLAYER_KNIGHT, COMPUTER_KNIGHT] = ['p_kn', 'c_kn'];
+
+
+module.exports = {
+    BOARD_WIDTH,
+    BOARD_LENGTH,
+    PLAYER_PAWN1,
+    PLAYER_PAWN2,
+    PLAYER_PAWN3,
+    PLAYER_PAWN4,
+    PLAYER_PAWN5,
+    COMPUTER_PAWN1,
+    COMPUTER_PAWN2,
+    COMPUTER_PAWN3,
+    COMPUTER_PAWN4,
+    COMPUTER_PAWN5,
+    PLAYER_ROOK,
+    COMPUTER_ROOK,
+    PLAYER_BISHOP,
+    COMPUTER_BISHOP,
+    PLAYER_KING,
+    COMPUTER_KING,
+    PLAYER_QUEEN,
+    COMPUTER_QUEEN,
+    PLAYER_KNIGHT,
+    COMPUTER_KNIGHT,
+  };
+  
