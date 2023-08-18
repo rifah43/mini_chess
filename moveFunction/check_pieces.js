@@ -65,6 +65,7 @@ function isPlayerPawn(piece) {
 
 
 
+
 module.exports = {
     isComputerPieces, isPlayerPieces, isComputerPawn, isPlayerPawn
 }

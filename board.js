@@ -16,12 +16,12 @@ function initialize(upperPlayerName) {
 
             //for Demo checking
             // board = [
-            //     [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT],
-            //     [constant.PLAYER_PAWN1, constant.PLAYER_PAWN2, constant.COMPUTER_PAWN3, constant.PLAYER_PAWN4, constant.PLAYER_PAWN5],
+            //     [constant.PLAYER_BISHOP, null,null, null, null],
             //     [null, null, null, null, null],
             //     [null, null, null, null, null],
-            //     [constant.COMPUTER_PAWN1, constant.COMPUTER_PAWN2, null, constant.COMPUTER_PAWN4, constant.COMPUTER_PAWN5],
-            //     [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT]
+            //     [null, null, null, null, null],
+            //     [null, null, constant.PLAYER_KNIGHT, null, null],
+            //     [null, constant.COMPUTER_KING, constant.PLAYER_PAWN4, null, null]
             // ];
         }
         else if (upperPlayerName === constant.COMPUTER_UPPER) {
