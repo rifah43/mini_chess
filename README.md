@@ -19,7 +19,3 @@ King c6; Queen d6; Rook a6; Bishop b6; Knight e6; Pawn a5, b5, c5, d5, e5.
 * There is no castling.
 * If 20 moves are played without a capture or promotion, the player with the most `points' on the board wins. (Pawn=1 pt., Bishop/Knight=3, Rook=5, Queen = 9.)
 
-
-# Moves
-## The Pawns Move
-The Pawn's movement is direct (i.e. advancing and not retreating or sidestepping). A Pawn takes a single step forward in each move. While capturing, a Pawn moves one square diagonally forward to claim its opponent's piece. Though Pawns normally cannot move diagonally, this is the only way they capture. Among all pieces, the Pawn is unique, capturing in a manner different from its regular movement pattern.
