@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, 90px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    height: 720px; /* Adjusted height to match cell size */
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+    height: 90px;
+    width: 90px;
+    background-color: rgb(235, 254, 226);
+    border: 1px solid rgb(0, 0, 0);
+    position: relative; /* Added to allow positioning of piece icons */
+}
+
+.piece {
+    font-size: 4rem; /* Adjust the size of the piece icons */
+}
+
+.numbers {
+    position: absolute;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-around;
+    height: 720px;
+    width: 57px;
+    left: -50px;
+    font-size: 1rem;
+    font-weight: bold;
+    list-style: none;
+    color: rgb(115, 2, 2);
+}
+
+.letters {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 57px;
+    width: 720px;
+    left: 0px;
+    bottom: -50px;
+    font-size: 1rem;
+    font-weight: bold;
+    list-style: none;
+    color: rgb(115, 2, 2);
+}
+
+.black {
+    background-color: rgb(202, 33, 33);
+}
