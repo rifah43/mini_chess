@@ -6,25 +6,25 @@
 
 .board {
     display: grid;
-    grid-template-columns: repeat(8, 90px);
+    grid-template-columns: repeat(5, 90px);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 720px;
-    height: 720px; /* Adjusted height to match cell size */
+    width: 453px;
+    height: 543px;
     border: 2px solid rgb(0, 0, 0);
 }
 
 .square {
     display: flex;
     justify-content: center;
-    align-items: center; /* Center content vertically */
+    align-items: center; 
     height: 90px;
     width: 90px;
     background-color: rgb(235, 254, 226);
     border: 1px solid rgb(0, 0, 0);
-    position: relative; /* Added to allow positioning of piece icons */
+    position: relative;
 }
 
 .piece {
@@ -37,7 +37,7 @@
     flex-direction: column-reverse;
     align-items: center;
     justify-content: space-around;
-    height: 720px;
+    height: 543px;
     width: 57px;
     left: -50px;
     font-size: 1rem;
@@ -52,7 +52,7 @@
     align-items: center;
     justify-content: space-around;
     height: 57px;
-    width: 720px;
+    width: 453px;
     left: 0px;
     bottom: -50px;
     font-size: 1rem;

@@ -9,11 +9,12 @@ let letter = "ABCDEFGH";
 
   boardGeneration(white,gameboard);
   
-  for (let index = 1; index <= 8; index++) {
+  for (let index = 1; index <=6; index++) {
     let numberList = document.createElement("li");
     numberList.textContent = index;
     numbers.appendChild(numberList);
-  
+  }
+  for (let index = 1; index <=5; index++) { 
     let textList = document.createElement("li");
     textList.textContent = letter[index - 1];
     letters.appendChild(textList);
