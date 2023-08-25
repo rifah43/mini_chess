@@ -1,5 +1,5 @@
-const constant = require('../constant.js');
-const check_pieces = require('./check_pieces.js');
+import * as constant from '../constant.js';
+import * as check_pieces from './check_pieces.js';
 
 function findKingsPosition(board, king) {
     let x, y;
@@ -12,7 +12,7 @@ function findKingsPosition(board, king) {
 
 function isMoveSafeForKing(board, king, upperPlayerName) {
     if(upperPlayerName != constant.COMPUTER_UPPER && upperPlayerName != constant.PLAYER_UPPER) {
-        console.log('"upperPlayerName" as ', upperPlayerName,' is invalide!!!!');
+        console.log('"upperPlayerName" as ', upperPlayerName,' is invalid!!!!');
         return null;
     }
     let [y, x] = findKingsPosition(board, king);
@@ -63,4 +63,4 @@ function isMoveSafeForKing(board, king, upperPlayerName) {
 }
 
 
-module.exports = { isMoveSafeForKing };
+export { isMoveSafeForKing };

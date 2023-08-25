@@ -1,0 +1,11 @@
+{
+  "name": "mini_chess",
+  "version": "1.0.0",
+  "description": "King c1; Queen d1; Rook a1; Bishop b1; Knight e1; Pawn a2, b2, c2, d2, e2.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,5 +1,5 @@
-const check_pieces = require('./check_pieces.js');
-const constant = require('../constant.js');
+import * as check_pieces from './check_pieces.js';
+import * as constant from '../constant.js';
 
 
 /* kings castiling move is not implemented as it is a minnichess
@@ -119,4 +119,4 @@ function move(board, positionY, positionX) {
     }
 }
 
-module.exports = { move };
+export { move };

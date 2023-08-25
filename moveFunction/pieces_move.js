@@ -1,9 +1,14 @@
-const pawns_move = require('./pawns_move.js').move;
-const rooks_move = require('./rooks_move.js').move;
-const bishops_move = require('./bishops_move.js').move;
-const kings_move = require('./kings_move.js').move;
+import * as pawns_moves from './pawns_move.js';
+import * as rooks_moves from './rooks_move.js';
+import * as bishops_moves from './bishops_move.js';
+import * as kings_moves from './kings_move.js';
 
-module.exports = {
+const pawns_move = pawns_moves.move;
+const rooks_move = rooks_moves.move;
+const bishops_move = bishops_moves.move;
+const kings_move = kings_moves.move;
+
+export {
     pawns_move,
     rooks_move,
     bishops_move,

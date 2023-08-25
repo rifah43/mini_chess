@@ -1,5 +1,5 @@
-const constant = require('../constant');
-const check_pieces = require('./check_pieces.js')
+import * as check_pieces from './check_pieces.js';
+import * as constant from '../constant.js';
 
 function move(board, positionY, positionX, upperPlayerName) {
     try {
@@ -111,4 +111,4 @@ function move(board, positionY, positionX, upperPlayerName) {
     }
 }
 
-module.exports = { move }
+export { move }

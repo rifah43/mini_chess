@@ -1,4 +1,4 @@
-const constant = require('../constant')
+import * as constant from '../constant.js';
 
 function isComputerPieces(piece) {
     if (piece === null) return false;
@@ -66,6 +66,6 @@ function isPlayerPawn(piece) {
 
 
 
-module.exports = {
+export {
     isComputerPieces, isPlayerPieces, isComputerPawn, isPlayerPawn
 }

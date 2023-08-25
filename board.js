@@ -1,8 +1,9 @@
-const constant = require('./constant.js');
+import * as constant from './constant.js';
 
 function initialize(upperPlayerName) {
     try {
         let board;
+        console.log(upperPlayerName,"ashlo");
         if (upperPlayerName === constant.PLAYER_UPPER) {
             // It's real
             board = [
@@ -109,7 +110,7 @@ function printAllBoards(allBoardArray) {
 }
 
 
-module.exports = {
+export {
     printBoard,
     initialize,
     printAllBoards

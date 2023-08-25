@@ -22,7 +22,7 @@ const PLAYER_UPPER = "player_upper";
 const COMPUTER_UPPER = "computer_upper"
 
 
-module.exports = {
+export {
   BOARD_WIDTH,
   BOARD_LENGTH,
 

@@ -21,7 +21,6 @@ function boardGeneration(white,gameboard){
                 
                 square.appendChild(piece);
               }
-        
             gameboard.appendChild(square);
           }
         }

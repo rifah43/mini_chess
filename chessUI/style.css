@@ -26,9 +26,13 @@
     border: 1px solid rgb(0, 0, 0);
     position: relative;
 }
+.square:hover {
+    background-color: rgb(237, 230, 165);
+    cursor:pointer;
+}
 
 .piece {
-    font-size: 4rem; /* Adjust the size of the piece icons */
+    font-size: 4rem;
 }
 
 .numbers {
@@ -63,4 +67,53 @@
 
 .black {
     background-color: rgb(202, 33, 33);
+}
+.black:hover {
+    background-color: rgb(255, 92, 92);
+}
+
+.buttons {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px;
+}
+
+#restart-button,
+#quit-button {
+    margin: 0 10px;
+}
+
+#restart-button {
+    display: block;
+    margin: 10px auto; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    background-color: #e00572; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#restart-button:hover {
+    background-color: #e3f4ff;
+    color: rgb(0, 0, 0); 
+}
+
+#quit-button {
+    display: block;
+    margin: 10px auto; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    background-color: #e00572; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#quit-button:hover {
+    background-color: #e3f4ff;
+    color: rgb(0, 0, 0); 
 }
