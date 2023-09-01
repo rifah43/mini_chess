@@ -1,23 +1,26 @@
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
+import * as kingsSafety from './kingsSafety.js';
 
 function move(board, positionY, positionX) {
     try {
         let totalMoves = [];
-        if (board[positionY][positionX] != constant.COMPUTER_ROOK){
+        if (board[positionY][positionX] != constant.COMPUTER_ROOK) {
             console.log("In position [", positionY, ",", positionX, "] is not a computer rook!!!");
             return null;
         }
 
         // checking move in rightside
-        for(let i=positionX+1 ; i<constant.BOARD_WIDTH ; i++) {
-            if(board[positionY][i] == null || check_pieces.isPlayerPieces(board[positionY][i])) {
-                const temp = board.map(row => [...row]);
-                temp[positionY][i] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
+        for (let i = positionX + 1; i < constant.BOARD_WIDTH; i++) {
+            if (board[positionY][i] == null || check_pieces.isPlayerPieces(board[positionY][i])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY, i)) {
+                    const temp = board.map(row => [...row]);
+                    temp[positionY][i] = board[positionY][positionX];
+                    temp[positionY][positionX] = null;
+                    totalMoves.push(temp);
+                }
 
-                if(check_pieces.isPlayerPieces(board[positionY][i])) break; // no more right move
+                if (check_pieces.isPlayerPieces(board[positionY][i])) break; // no more right move
             }
             else {
                 break;
@@ -25,14 +28,16 @@ function move(board, positionY, positionX) {
         }
 
         // checking move in leftside
-        for(let i=positionX-1 ; i>=0 ; i--) {
-            if(board[positionY][i] == null || check_pieces.isPlayerPieces(board[positionY][i])) {
-                const temp = board.map(row => [...row]);
-                temp[positionY][i] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
+        for (let i = positionX - 1; i >= 0; i--) {
+            if (board[positionY][i] == null || check_pieces.isPlayerPieces(board[positionY][i])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY, i)) {
+                    const temp = board.map(row => [...row]);
+                    temp[positionY][i] = board[positionY][positionX];
+                    temp[positionY][positionX] = null;
+                    totalMoves.push(temp);
+                }
 
-                if(check_pieces.isPlayerPieces(board[positionY][i])) break; // no more left move
+                if (check_pieces.isPlayerPieces(board[positionY][i])) break; // no more left move
             }
             else {
                 break;
@@ -40,14 +45,16 @@ function move(board, positionY, positionX) {
         }
 
         // checking move in upperside
-        for(let i=positionY-1 ; i>=0 ; i--) {
-            if(board[i][positionX] == null || check_pieces.isPlayerPieces(board[i][positionX])) {
-                const temp = board.map(row => [...row]);
-                temp[i][positionX] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
+        for (let i = positionY - 1; i >= 0; i--) {
+            if (board[i][positionX] == null || check_pieces.isPlayerPieces(board[i][positionX])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, i, positionX)) {
+                    const temp = board.map(row => [...row]);
+                    temp[i][positionX] = board[positionY][positionX];
+                    temp[positionY][positionX] = null;
+                    totalMoves.push(temp);
+                }
 
-                if(check_pieces.isPlayerPieces(board[i][positionX])) break; // no more upper move
+                if (check_pieces.isPlayerPieces(board[i][positionX])) break; // no more upper move
             }
             else {
                 break;
@@ -55,14 +62,16 @@ function move(board, positionY, positionX) {
         }
 
         // checking move in lowerside
-        for(let i=positionY+1 ; i<constant.BOARD_LENGTH ; i++) {
-            if(board[i][positionX] == null || check_pieces.isPlayerPieces(board[i][positionX])) {
-                const temp = board.map(row => [...row]);
-                temp[i][positionX] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
+        for (let i = positionY + 1; i < constant.BOARD_LENGTH; i++) {
+            if (board[i][positionX] == null || check_pieces.isPlayerPieces(board[i][positionX])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, i, positionX)) {
+                    const temp = board.map(row => [...row]);
+                    temp[i][positionX] = board[positionY][positionX];
+                    temp[positionY][positionX] = null;
+                    totalMoves.push(temp);
+                }
 
-                if(check_pieces.isPlayerPieces(board[i][positionX])) break; // no more upper move
+                if (check_pieces.isPlayerPieces(board[i][positionX])) break; // no more upper move
             }
             else {
                 break;

@@ -1,23 +1,28 @@
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
+import * as kingsSafety from './kingsSafety.js';
 
 
-function addMoves(board, positionY, positionX, nextMoveY, nextMoveX) { 
+function addMoves(board, positionY, positionX, nextMoveY, nextMoveX) {
     if ((nextMoveX >= 0 && nextMoveX < constant.BOARD_WIDTH) &&
         (nextMoveY >= 0 && nextMoveY < constant.BOARD_LENGTH) &&
         (board[nextMoveY][nextMoveX] == null || check_pieces.isPlayerPieces(board[nextMoveY][nextMoveX]))) {
 
-        const temp = board.map(row => [...row]);
-        temp[nextMoveY][nextMoveX] = board[positionY][positionX];
-        temp[positionY][positionX] = null;
+        if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, nextMoveY, nextMoveX)) {
 
-        return temp;
+            const temp = board.map(row => [...row]);
+            temp[nextMoveY][nextMoveX] = board[positionY][positionX];
+            temp[positionY][positionX] = null;
+
+            return temp;
+        }
+        else return null
     }
     else return null;
 }
 function move(board, positionY, positionX) {
     try {
-        let totalMoves = [], nextMoveX, nextMoveY;
+        let totalMoves = [];
         if (board[positionY][positionX] != constant.COMPUTER_KNIGHT) {
             console.log("In position [", positionY, ",", positionX, "] is not a computer kinght!!!");
             return null;
