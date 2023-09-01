@@ -10,6 +10,7 @@ import * as kingsSafety from '../moveFunction/kingsSafety.js';
 
 let white = true;
 let letter = "ABCDEFGH";
+console.log("Hi I'am Muktadul Islam")
 
 const upperPlayers = [constant.PLAYER_UPPER, constant.COMPUTER_UPPER]; 
 console.log(upperPlayers,"kkk");
