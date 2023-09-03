@@ -20,7 +20,7 @@ console.log(randomUpperPlayer,"iiii");
 const UpperPlayerName = randomUpperPlayer;
 
 const board = initialize(UpperPlayerName);
-kingsSafety.isMoveSafeForKing(board, constant.PLAYER_KING,randomUpperPlayer);
+kingsSafety.isThisMoveSafeForKing(board, constant.PLAYER_KING,randomUpperPlayer);
 
 boardGenerationAndPopulate(white);
 
@@ -28,11 +28,7 @@ const restartButton = document.getElementById('restart-button');
 restartButton.addEventListener('click', restartGame);
 
 function restartGame() {
-    gameboard.innerHTML = '';
-    numbers.innerHTML = '';
-    letters.innerHTML = '';
-
-    boardGenerationAndPopulate(white);
+    location.reload();
 }
 
 function boardGenerationAndPopulate(white) {
@@ -54,35 +50,3 @@ function createAndAppendListItem(container, text) {
     listItem.textContent = text;
     container.appendChild(listItem);
 }
-
-// const squares = gameboard.querySelectorAll(".square");
-// squares.forEach((square) => {
-//   square.addEventListener("click", handleSquareClick);
-// });
-
-// let selectedPiece = null;
-
-// function handleSquareClick(event) {
-//   const clickedSquare = event.target;
-
-//   if (selectedPiece === null) {
-//     selectedPiece = clickedSquare.textContent; 
-//     clickedSquare.style.backgroundColor = "yellow";
-//   } else {
-//     const targetSquare = clickedSquare.textContent; 
-//     if (isValidMove(selectedPiece, targetSquare)) {
-//       selectedPiece = null;
-//       squares.forEach((square) => {
-//         square.style.backgroundColor = "";
-//       });
-//     } else {
-//       alert("Wrong Move!");
-//     }
-//   }
-// }
-
-// function isValidMove(selectedPiece, targetSquare) {
-//   // Implement your Minichess movement validation logic here
-//   // Check if the selectedPiece can legally move to the targetSquare
-//   // Return true if valid, false if not
-// }
