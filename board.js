@@ -1,54 +1,26 @@
 import * as constant from './constant.js';
-
-function initialize(upperPlayerName) {
+function initialize() {
     try {
-        let board;
-        console.log(upperPlayerName,"ashlo");
-        if (upperPlayerName === constant.PLAYER_UPPER) {
-            // It's real
-            board = [
-                [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT],
-                [constant.PLAYER_PAWN1, constant.PLAYER_PAWN2, constant.PLAYER_PAWN3, constant.PLAYER_PAWN4, constant.PLAYER_PAWN5],
-                [null, null, null, null, null],
-                [null, null, null, null, null],
-                [constant.COMPUTER_PAWN1, constant.COMPUTER_PAWN2, constant.COMPUTER_PAWN3, constant.COMPUTER_PAWN4, constant.COMPUTER_PAWN5],
-                [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT]
-            ];
+        let board; 
+        // It's real
+        // board = [
+        //     [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT],
+        //     [constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN],
+        //     [null, null, null, null, null],
+        //     [null, null, null, null, null],
+        //     [constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN],
+        //     [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT]
+        // ];
 
-            //for Demo checking
-            // board = [
-            //     [constant.PLAYER_BISHOP, null,null, null, null],
-            //     [null, null, null, null, null],
-            //     [null, null, null, null, null],
-            //     [null, null, null, null, null],
-            //     [null, null, constant.PLAYER_KNIGHT, null, null],
-            //     [null, constant.COMPUTER_KING, constant.PLAYER_PAWN4, null, null]
-            // ];
-        }
-        else if (upperPlayerName === constant.COMPUTER_UPPER) {
-            // It's real
-            board = [
-                [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT],
-                [constant.COMPUTER_PAWN1, constant.COMPUTER_PAWN2, constant.COMPUTER_PAWN3, constant.COMPUTER_PAWN4, constant.COMPUTER_PAWN5],
-                [null, null, null, null, null],
-                [null, null, null, null, null],
-                [constant.PLAYER_PAWN1, constant.PLAYER_PAWN2, constant.PLAYER_PAWN3, constant.PLAYER_PAWN4, constant.PLAYER_PAWN5],
-                [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT]
-            ];
-
-            //for Demo checking
-            // board = [
-            //     [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT],
-            //     [constant.COMPUTER_PAWN1, constant.COMPUTER_PAWN2, null, constant.COMPUTER_PAWN4, constant.COMPUTER_PAWN5],
-            //     [null, null, null, null, null],
-            //     [null, null, null, null, null],
-            //     [constant.PLAYER_PAWN1, constant.PLAYER_PAWN2, constant.COMPUTER_PAWN3, constant.PLAYER_PAWN4, constant.PLAYER_PAWN5],
-            //     [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT]
-            // ];
-        }
-        else {
-            return null;
-        }
+        //for Demo checking
+        board = [
+            [null, null, null, null, null],
+            [null, null, constant.PLAYER_KING, null, null],
+            [null, null, null, null, null],
+            [null, null, constant.COMPUTER_KING, null, null],
+            [null, null, null, null, null],
+            [null, constant.PLAYER_ROOK, null, null, constant.PLAYER_KNIGHT],
+        ];
 
         return board;
     } catch (error) {
@@ -85,8 +57,9 @@ function printAllBoards(allBoardArray) {
     try {
         if (allBoardArray == null) return 0;
 
+        let numberOfMoves = 0;
         allBoardArray.forEach(board => {
-
+            console.log("Move No= ", ++numberOfMoves);
             const x = "null";
             for (let i = 0; i < constant.BOARD_LENGTH; i++) {
                 let line = '';
@@ -108,7 +81,6 @@ function printAllBoards(allBoardArray) {
         return -1;
     }
 }
-
 
 export {
     printBoard,

@@ -1,114 +1,83 @@
+// const check_pieces = require('./check_pieces.js');
+// const constant = require('../constant.js');
+// const kingsSafety = require('./kingsSafety.js')
+
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
+import * as kingsSafety from './kingsSafety.js';
+
+function isOpositeKingIsNear(board, nextMoveY, nextMoveX, king) {
+    let opositeKing;
+    if (king == constant.COMPUTER_KING) opositeKing = constant.PLAYER_KING;
+    else opositeKing = constant.COMPUTER_KING;
+
+    if ((nextMoveX - 1 >= 0 && nextMoveY - 1 >= 0 && board[nextMoveY - 1][nextMoveX - 1] == opositeKing) ||
+        (nextMoveY - 1 >= 0 && board[nextMoveY - 1][nextMoveX] == opositeKing) ||
+        (nextMoveX + 1 < constant.BOARD_WIDTH && nextMoveY - 1 >= 0 && board[nextMoveY - 1][nextMoveX + 1] == opositeKing) ||
+        (nextMoveX + 1 < constant.BOARD_WIDTH && board[nextMoveY][nextMoveX + 1] == opositeKing) ||
+        (nextMoveX + 1 < constant.BOARD_WIDTH && nextMoveY + 1 < constant.BOARD_LENGTH && board[nextMoveY + 1][nextMoveX + 1] == opositeKing) ||
+        (nextMoveY + 1 < constant.BOARD_LENGTH && board[nextMoveY + 1][nextMoveX] == opositeKing) ||
+        (nextMoveX - 1 >= 0 && nextMoveY + 1 < constant.BOARD_LENGTH && board[nextMoveY + 1][nextMoveX - 1] == opositeKing) ||
+        (nextMoveX - 1 >= 0 && board[nextMoveY][nextMoveX - 1] == opositeKing)
+    ) return true;
+    else
+        return false;
+}
+
+
+function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMoveY, nextMoveX) {
+    if (board[nextMoveY][nextMoveX] == null || check_pieces.isPlayerPieces(board[nextMoveY][nextMoveX])) {
+
+        let king = board[currentPositionY][currentPositionX];
+        if (king != constant.COMPUTER_KING && king != constant.PLAYER_KING) {
+            console.log("there is no king in position [", currentPositionY, currentPositionX, "] !!!!!");
+            return null;
+        }
+
+        if (!(isOpositeKingIsNear(board, nextMoveY, nextMoveX, king))) {
+            let tempValue1 = board[currentPositionY][currentPositionX];
+            let tempValue2 = board[nextMoveY][nextMoveX];
+            board[nextMoveY][nextMoveX] = board[currentPositionY][currentPositionX];
+            board[currentPositionY][currentPositionX] = null;
+
+
+            let isSafe = !kingsSafety.isItCheck(board, king)[0];
+
+            board[currentPositionY][currentPositionX] = tempValue1;
+            board[nextMoveY][nextMoveX] = tempValue2;
+
+            if (isSafe) {
+                const temp = board.map(row => [...row]);
+                temp[nextMoveY][nextMoveX] = board[currentPositionY][currentPositionX];
+                temp[currentPositionY][currentPositionX] = null;
+                totalMoves.push(temp);
+            }
+        }
+    }
+}
+
 
 /* kings castiling move is not implemented as it is a minnichess
  if you want to make it 8x8 chessboard plz implement  this feature */
 function move(board, positionY, positionX) {
     try {
-        let totalMoves = [], x, y;
+        let totalMoves = [];
         if (board[positionY][positionX] != constant.COMPUTER_KING) {
             console.log("In position [", positionY, ",", positionX, "] is not a computer king!!!");
             return null;
         }
 
-        /*------------ diagonal move ------------*/
-        // checking move in left-upper side
-        y = positionY - 1;
-        x = positionX - 1;
-        if (x >= 0 && y >= 0) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
-        // checking move in right-upper side
-        y = positionY - 1;
-        x = positionX + 1;
-        if (x < constant.BOARD_WIDTH && y >= 0) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
-        // checking move in left-lower
-        y = positionY + 1;
-        x = positionX - 1;
-        if (x >= 0 && y < constant.BOARD_LENGTH) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
-        // checking move in right-lower
-        y = positionY + 1;
-        x = positionX + 1;
-        if (x < constant.BOARD_WIDTH && y < constant.BOARD_LENGTH) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
+        let x = positionX, y = positionY;
+        if (x - 1 >= 0 && y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x - 1);
+        if (y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x);
+        if (x + 1 < constant.BOARD_WIDTH && y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x + 1);
+        if (x + 1 < constant.BOARD_WIDTH) safeMove(totalMoves, board, y, x, y, x + 1);
 
+        if (x + 1 < constant.BOARD_WIDTH && y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x + 1);
+        if (y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x);
+        if (x - 1 >= 0 && y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x - 1);
+        if (x - 1 >= 0) safeMove(totalMoves, board, y, x, y, x - 1);
 
-
-
-        /*------------ up-down move ------------*/
-        // checking move in left side
-        y = positionY;
-        x = positionX - 1;
-        if (x >= 0) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
-
-        // checking move in right side
-        y = positionY;
-        x = positionX + 1;
-        if (x < constant.BOARD_WIDTH) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
-
-
-        // checking move in lower
-        y = positionY + 1;
-        x = positionX;
-        if (y < constant.BOARD_LENGTH) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
-
-        // checking move in upper
-        y = positionY - 1;
-        x = positionX;
-        if (y < constant.BOARD_LENGTH) {
-            if (board[x][y] == null || check_pieces.isPlayerPieces(board[y][x])) {
-                const temp = board.map(row => [...row]);
-                temp[y][x] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
 
         return totalMoves;
 
@@ -118,4 +87,5 @@ function move(board, positionY, positionX) {
     }
 }
 
+// module.exports = { move };
 export { move };

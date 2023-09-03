@@ -1,5 +1,5 @@
+// const constant = require('../constant.js');
 import * as constant from '../constant.js';
-import * as check_pieces from './check_pieces.js';
 
 function findKingsPosition(board, king) {
     let x, y;
@@ -8,6 +8,7 @@ function findKingsPosition(board, king) {
             if (board[y][x] === king) return [y, x];
         }
     }
+    return [null, null];
 }
 
 function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMoveY, nextMoveX) {
@@ -17,7 +18,7 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
     if (Math.abs(y - currentPositionY) == Math.abs(currentPositionX - x)) {
         // check that next move is also diagonal ? if then move is safe for king
         if (Math.abs(nextMoveY - y) == Math.abs(x - nextMoveX)) {
-            console.log("true1")
+            // console.log("true1")
             return true;
         }
 
@@ -26,11 +27,11 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
             for (let i = x + 1, j = y - 1; i < constant.BOARD_WIDTH && j >= 0; i++, j--) {
                 if (i == currentPositionX && j == currentPositionY || board[j][i] == null) continue;
                 else if (board[j][i] == constant.PLAYER_BISHOP || board[j][i] == constant.PLAYER_QUEEN) {
-                    console.log("false1")
+                    // console.log("false1")
                     return false;
                 }
                 else {
-                    console.log("true2")
+                    // console.log("true2")
                     return true;
                 }
             }
@@ -40,11 +41,11 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
             for (let i = x + 1, j = y + 1; i < constant.BOARD_WIDTH && j < constant.BOARD_LENGTH; i++, j++) {
                 if (i == currentPositionX && j == currentPositionY || board[j][i] == null) continue;
                 else if (board[j][i] == constant.PLAYER_BISHOP || board[j][i] == constant.PLAYER_QUEEN) {
-                    console.log("false2")
+                    // console.log("false2")
                     return false;
                 }
                 else {
-                    console.log("true3")
+                    // console.log("true3")
                     return true;
                 }
             }
@@ -54,11 +55,11 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
             for (let i = x - 1, j = y + 1; i >= 0 && j < constant.BOARD_LENGTH; i--, j++) {
                 if (i == currentPositionX && j == currentPositionY || board[j][i] == null) continue;
                 else if (board[j][i] == constant.PLAYER_BISHOP || board[j][i] == constant.PLAYER_QUEEN) {
-                    console.log("false3")
+                    // console.log("false3")
                     return false;
                 }
                 else {
-                    console.log("true4")
+                    // console.log("true4")
                     return true;
                 }
             }
@@ -68,16 +69,16 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
             for (let i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
                 if (i == currentPositionX && j == currentPositionY || board[j][i] == null) continue;
                 else if (board[j][i] == constant.PLAYER_BISHOP || board[j][i] == constant.PLAYER_QUEEN) {
-                    console.log("false4")
+                    // console.log("false4")
                     return false;
                 }
                 else {
-                    console.log("true5")
+                    // console.log("true5")
                     return true;
                 }
             }
         }
-        console.log("true6")
+        // console.log("true6")
         return true;
     }
     // Checking that king and the pieces are in same row or column
@@ -85,8 +86,8 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
         // if the pieces and the king stay in same row
         if (y == currentPositionY) {
             // check that next move is also in vertical ? if then move is safe for king
-            if (currentPositionY == nextMoveY){
-                console.log("true7")
+            if (currentPositionY == nextMoveY) {
+                // console.log("true7")
                 return true;
             }
 
@@ -95,11 +96,11 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
                 for (let i = x - 1; i >= 0; i--) {
                     if (i == currentPositionX || board[y][i] == null) continue;
                     else if (board[y][i] == constant.PLAYER_ROOK || board[y][i] == constant.PLAYER_QUEEN) {
-                        console.log("false5")
+                        // console.log("false5")
                         return false;
                     }
                     else {
-                        console.log("true8")
+                        // console.log("true8")
                         return true;
                     }
                 }
@@ -109,11 +110,11 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
                 for (let i = x + 1; i < constant.BOARD_WIDTH; i++) {
                     if (i == currentPositionX || board[y][i] == null) continue;
                     else if (board[y][i] == constant.PLAYER_ROOK || board[y][i] == constant.PLAYER_QUEEN) {
-                        console.log("false6")
+                        // console.log("false6")
                         return false;
                     }
                     else {
-                        console.log("true9")
+                        // console.log("true9")
                         return true;
                     }
                 }
@@ -122,36 +123,36 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
         // if the pieces and the king stay in same column
         else {
             // check that next move is also in vertical ? if then move is safe for king
-            if (currentPositionX == nextMoveX){
-                console.log("true10")
+            if (currentPositionX == nextMoveX) {
+                // console.log("true10")
                 return true;
             }
 
 
             // if king stay in lower-side
-            if (y >currentPositionY) {
+            if (y > currentPositionY) {
                 for (let j = y - 1; j >= 0; j--) {
                     if (j == currentPositionY || board[j][x] == null) continue;
                     else if (board[j][x] == constant.PLAYER_ROOK || board[j][x] == constant.PLAYER_QUEEN) {
-                        console.log("false7")
+                        // console.log("false7")
                         return false;
                     }
                     else {
-                        console.log("true11")
+                        // console.log("true11")
                         return true;
                     }
                 }
             }
             // if king stay in upper-side
             else {
-                for (let j = y + 1; j <constant.BOARD_LENGTH; j++) {
+                for (let j = y + 1; j < constant.BOARD_LENGTH; j++) {
                     if (j == currentPositionY || board[j][x] == null) continue;
                     else if (board[j][x] == constant.PLAYER_ROOK || board[j][x] == constant.PLAYER_QUEEN) {
-                        console.log("false8")
+                        // console.log("false8")
                         return false;
                     }
                     else {
-                        console.log("true12")
+                        // console.log("true12")
                         return true;
                     }
                 }
@@ -160,10 +161,241 @@ function isThisMoveSafeForKing(board, currentPositionY, currentPositionX, nextMo
     }
     // the move does not affect in king's safty
     else {
-        console.log("true13")
+        // console.log("true13")
         return true;
     }
 }
 
 
+
+function isItCheck(board, kingName) {
+    let kingsPosition = findKingsPosition(board, kingName);
+    let checkingPices = null;
+    let isItCheck = false;
+    let attackedBy = [];
+
+    if (kingName == constant.COMPUTER_KING) {
+        checkingPices = {
+            rook: constant.PLAYER_ROOK,
+            queen: constant.PLAYER_QUEEN,
+            khight: constant.PLAYER_KNIGHT,
+            bishop: constant.PLAYER_BISHOP,
+            pawn: constant.PLAYER_PAWN
+        }
+    }
+    else if (kingName == constant.PLAYER_KING) {
+        checkingPices = {
+            rook: constant.COMPUTER_ROOK,
+            queen: constant.COMPUTER_QUEEN,
+            khight: constant.COMPUTER_KNIGHT,
+            bishop: constant.COMPUTER_BISHOP,
+            pawn: constant.COMPUTER_PAWN
+        }
+    }
+    else {
+        console.log("Invalide king's type!!! it should be (constant.COMPUTER_KING/PLAYER_KING)");
+        return null;
+    }
+    
+    
+    
+    isItCheck = isItCheckBy_Vertical_Horizontal(board, kingsPosition, attackedBy, checkingPices) || isItCheck;
+    isItCheck = isItCheckByKnight(board, kingsPosition, attackedBy, checkingPices) || isItCheck;
+    isItCheck = isItCheckBy_Diagonaly(board, kingsPosition, attackedBy, checkingPices) || isItCheck;
+
+    return [isItCheck, attackedBy];
+
+}
+
+function isItCheckBy_Diagonaly(board, kingsPosition, attackedBy, checkingPices) {
+    let isItCheck = false;
+    let [queen, bishop, pawn] = [checkingPices.queen, checkingPices.bishop, checkingPices.pawn];
+    let [y, x] = [kingsPosition[0], kingsPosition[1]];
+
+    // checking left-lower
+    for (let i = x - 1, j = y + 1; i >= 0 && j < constant.BOARD_LENGTH; i--, j++) {
+        if (board[j][i] == null) continue;
+        if ((i == x - 1) && (queen == constant.PLAYER_QUEEN)) {
+            if (pawn = board[j][i]) {
+                isItCheck = true;
+                attackedBy.push([j, i]);
+            }
+        }
+        if (board[j][i] == bishop || board[j][i] == queen) {
+            isItCheck = true;
+            attackedBy.push([j, i]);
+        }
+        else {
+            break;
+        }
+    }
+    // checking right-lower
+    for (let i = x + 1, j = y + 1; i < constant.BOARD_WIDTH && j < constant.BOARD_LENGTH; i++, j++) {
+        if (board[j][i] == null) continue;
+        if ((i == x + 1) && (queen == constant.PLAYER_QUEEN)) {
+            if (board[j][i] == pawn) {
+                isItCheck = true;
+                attackedBy.push([j, i]);
+            }
+        }
+        if (board[j][i] == bishop || board[j][i] == queen) {
+            isItCheck = true;
+            attackedBy.push([j, i]);
+        }
+        else {
+            break;
+        }
+    }
+    // checking left-upper
+    for (let i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+        if (board[j][i] == null) continue;
+        else if ((i == x - 1) && (queen == constant.COMPUTER_QUEEN)) {
+            if (pawn = board[j][i]) {
+                isItCheck = true;
+                attackedBy.push([j, i]);
+            }
+        }
+        else if (board[j][i] == bishop || board[j][i] == queen) {
+            isItCheck = true;
+            attackedBy.push([j, i]);
+        }
+        else {
+            break;
+        }
+    }
+    // checking right-upper
+    for (let i = x + 1, j = y - 1; i < constant.BOARD_WIDTH && j >= 0; i++, j--) {
+        if (board[j][i] == null) continue;
+
+        else if ((i == x + 1) && (queen == constant.COMPUTER_QUEEN)) {
+            if (board[j][i] == pawn) {
+                isItCheck = true;
+                attackedBy.push([j, i]);
+            }
+        }
+
+        else if ((board[j][i] == bishop) || (board[j][i] == queen)) {
+            isItCheck = true;
+            attackedBy.push([j, i]);
+        }
+        else {
+            break;
+        }
+    }
+    return isItCheck;
+}
+
+function isItCheckBy_Vertical_Horizontal(board, kingsPosition, attackedBy, checkingPices) {
+    let isItCheck = false;
+    let [rook, queen] = [checkingPices.rook, checkingPices.queen];
+    let [y, x] = [kingsPosition[0], kingsPosition[1]];
+
+    // checking upper side
+    for (let i = y - 1; i >= 0; i--) {
+        if (board[i][x] == null) continue;
+        if (board[i][x] == rook || board[i][x] == queen) {
+            isItCheck = true;
+            attackedBy.push([i, x]);
+        }
+        else {
+            break;
+        }
+    }
+    // checking lower side
+    for (let i = y + 1; i < constant.BOARD_LENGTH; i++) {
+        if (board[i][x] == null) continue;
+        if (board[i][x] == rook || board[i][x] == queen) {
+            isItCheck = true;
+            attackedBy.push([i, x]);
+        }
+        else {
+            break;
+        }
+    }
+    // checking right side
+    for (let i = x + 1; i < constant.BOARD_WIDTH; i++) {
+        if (board[y][i] == null) continue;
+        if (board[y][i] == rook || board[y][i] == queen) {
+            isItCheck = true;
+            attackedBy.push([y, i]);
+        }
+        else {
+            break;
+        }
+    }
+    // checking left side
+    for (let i = x - 1; i >= 0; i--) {
+        if (board[y][i] == null) continue;
+        if (board[y][i] == rook || board[y][i] == queen) {
+            isItCheck = true;
+            attackedBy.push([y, i]);
+        }
+        else {
+            break;
+        }
+    }
+
+    return isItCheck;
+}
+
+function isItCheckByKnight(board, kingsPosition, attackedBy, checkingPices) {
+    let isItCheck = false;
+    let [khight] = [checkingPices.khight];
+    let [y, x] = [kingsPosition[0], kingsPosition[1]];
+
+    // Checking that is king attacked by Khight
+    if ((y - 2 >= 0 && x - 1 >= 0) &&
+        board[y - 2][x - 1] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y - 2, x - 1]);
+    }
+    if ((y - 1 >= 0 && x - 2 >= 0) &&
+        board[y - 1][x - 2] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y - 1, x - 2]);
+    }
+    if ((y + 1 < constant.BOARD_LENGTH && x - 2 >= 0) &&
+        board[y + 1][x - 2] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y + 1, x - 2]);
+    }
+    if ((y + 2 < constant.BOARD_LENGTH && x - 1 >= 0) &&
+        board[y + 2][x - 1] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y + 2, x - 1]);
+    }
+
+    if ((y + 2 < constant.BOARD_LENGTH && x + 1 < constant.BOARD_WIDTH) &&
+        board[y + 2][x + 1] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y + 2, x + 1]);
+    }
+    if ((y + 1 < constant.BOARD_LENGTH && x + 2 < constant.BOARD_WIDTH) &&
+        board[y + 1][x + 2] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y + 1, x + 2]);
+    }
+    if ((y - 1 >= 0 && x + 2 < constant.BOARD_WIDTH) &&
+        board[y - 1][x + 2] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y - 1, x + 2]);
+    }
+    if ((y - 2 >= 0 && x + 1 < constant.BOARD_WIDTH) &&
+        board[y - 2][x + 1] == khight) {
+
+        isItCheck = true;
+        attackedBy.push([y - 2, x + 1]);
+    }
+
+    return isItCheck;
+}
+
+// module.exports = { isThisMoveSafeForKing, isItCheck };
 export { isThisMoveSafeForKing };

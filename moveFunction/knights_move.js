@@ -1,3 +1,7 @@
+// const check_pieces = require('./check_pieces.js');
+// const constant = require('../constant.js');
+// const kingsSafety = require('./kingsSafety.js');
+
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
 import * as kingsSafety from './kingsSafety.js';
@@ -60,4 +64,5 @@ function move(board, positionY, positionX) {
     }
 }
 
+// module.exports = { move };
 export { move };
