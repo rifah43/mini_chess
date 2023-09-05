@@ -24,7 +24,7 @@ function restartGame() {
 }
 
 function boardGenerationAndPopulate(white) {
-    boardGeneration(white, gameboard);
+    boardGeneration(white, gameboard,board);
     
     for (let index = 1; index <= 6; index++) {
         createAndAppendListItem(numbers, index);

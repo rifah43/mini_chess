@@ -4,8 +4,9 @@ import { move as bishops_move } from "../moveFunction/bishops_move.js";
 
 let draggedPiece = null;
 let currentPlayer = "white";
-
-function boardGeneration(white, gameboard) {
+let board=null;
+function boardGeneration(white, gameboard,bb) {
+  board=bb;
   for (let row = 0; row < 6; row++) {
     for (let col = 0; col < 5; col++) {
       let square = document.createElement("div");
@@ -73,7 +74,8 @@ function handleDrop(e) {
     console.log(pieceId.endsWith("bishop"))
 
     if (pieceId.endsWith("bishop")) {
-      const possibleMoves = bishops_move(gameboard, nums[0], nums[1]);
+      console.log(board)
+      const possibleMoves = bishops_move(board, nums[0], nums[1]);
       console.log("Possible Moves:", possibleMoves);
       // Highlight valid drop targets (possible move squares)
       for (const move of possibleMoves) {
