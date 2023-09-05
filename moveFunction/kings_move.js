@@ -29,10 +29,6 @@ function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMov
     if (board[nextMoveY][nextMoveX] == null || check_pieces.isPlayerPieces(board[nextMoveY][nextMoveX])) {
 
         let king = board[currentPositionY][currentPositionX];
-        if (king != constant.COMPUTER_KING && king != constant.PLAYER_KING) {
-            console.log("there is no king in position [", currentPositionY, currentPositionX, "] !!!!!");
-            return null;
-        }
 
         if (!(isOpositeKingIsNear(board, nextMoveY, nextMoveX, king))) {
             let tempValue1 = board[currentPositionY][currentPositionX];
@@ -40,17 +36,13 @@ function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMov
             board[nextMoveY][nextMoveX] = board[currentPositionY][currentPositionX];
             board[currentPositionY][currentPositionX] = null;
 
-
             let isSafe = !kingsSafety.isItCheck(board, king)[0];
 
             board[currentPositionY][currentPositionX] = tempValue1;
             board[nextMoveY][nextMoveX] = tempValue2;
 
             if (isSafe) {
-                const temp = board.map(row => [...row]);
-                temp[nextMoveY][nextMoveX] = board[currentPositionY][currentPositionX];
-                temp[currentPositionY][currentPositionX] = null;
-                totalMoves.push(temp);
+                totalMoves.push({currentPosition: {y:currentPositionY, x: currentPositionX}, nextPosition: {y: nextMoveY, x:nextMoveX}});
             }
         }
     }
@@ -62,8 +54,8 @@ function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMov
 function move(board, positionY, positionX) {
     try {
         let totalMoves = [];
-        if (board[positionY][positionX] != constant.COMPUTER_KING) {
-            console.log("In position [", positionY, ",", positionX, "] is not a computer king!!!");
+        if (board[positionY][positionX] != constant.COMPUTER_KING && board[positionY][positionX] != constant.PLAYER_KING) {
+            console.log("There is no king in position [", currentPositionY, currentPositionX, "] !!!!!");
             return null;
         }
 

@@ -1,70 +1,85 @@
-const constant = require('../constant');
-const check_pieces = require('./check_pieces.js')
-const kingsSafety = require('./kingsSafety.js');
+// const constant = require('../constant');
+// const check_pieces = require('./check_pieces.js')
+// const kingsSafety = require('./kingsSafety.js');
 
-// import * as check_pieces from './check_pieces.js';
-// import * as constant from '../constant.js';
-// import * as kingsSafety from './kingsSafety.js';
+import * as check_pieces from './check_pieces.js';
+import * as constant from '../constant.js';
+import * as kingsSafety from './kingsSafety.js';
 
-// function move(board, positionY, positionX, upperPlayerName) {
+
 function move(board, positionY, positionX) {
     try {
-        let totalMoves = [];
-        if (!check_pieces.isComputerPawn(board[positionY][positionX])) {
-            console.log("In position [", positionY, ",", positionX, "] is not a computer pawn!!!");
+        let totalMoves = [];        //it will be like this [{current:{y:2, x:3]}, nextMove:{y:2, x:5]}}]
+        let pawnName;
+
+        if (check_pieces.isComputerPawn(board[positionY][positionX])) {
+            pawnName = "computersPawn";
+        }
+        else if (check_pieces.isPlayerPawn(board[positionY][positionX])) {
+            pawnName = "playersPawn";
+        }
+        else {
+            console.log("In position [", positionY, ",", positionX, "] is not a pawn!!!");
             return null;
         }
 
-        // Checking forword move
-        if (board[positionY + 1][positionX] == null) {
-            if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX)) {
-                const temp = board.map(row => [...row]);
-                temp[positionY + 1][positionX] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
 
-                // If Computer Pawon reached the last line of the opponent player, then it will replace with Queen 
-                if (positionY + 1 == constant.BOARD_LENGTH - 1) {
-                    temp[positionY + 1][positionX] = constant.COMPUTER_QUEEN;
+        if (pawnName == "computersPawn") {
+            // // Double forwoed move for first time
+            // if (positionY == 1 && board[positionY + 1][positionX] == null && board[positionY + 2][positionX] == null) {
+            //     if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 2, positionX)) {
+            //         totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 2, x: positionX } });
+            //     }
+            // }
+
+
+            // Checking forword move
+            if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX)) {
+                    totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 1, x: positionX } });
                 }
-                totalMoves.push(temp);
             }
-        }
-        if (positionY == 1 && board[positionY + 1][positionX] == null && board[positionY + 2][positionX] == null) {
-            if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 2, positionX)) {
-                const temp = board.map(row => [...row]);
-                temp[positionY + 2][positionX] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-                totalMoves.push(temp);
-            }
-        }
 
-
-
-        // Checking diagonally forward move
-        if (positionX != 0 && check_pieces.isPlayerPieces(board[positionY + 1][positionX - 1])) {
-            if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX - 1)) {
-                const temp = board.map(row => [...row]);
-                temp[positionY + 1][positionX - 1] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-
-                // If Computer Pawon reached the last line of the opponent player, then it will replace with Queen 
-                if (positionY + 1 == constant.BOARD_LENGTH - 1) {
-                    temp[positionY + 1][positionX - 1] = constant.COMPUTER_QUEEN;
+            // Checking diagonally forward move
+            if (positionX > 0 && positionY + 1 < constant.BOARD_LENGTH && check_pieces.isPlayerPieces(board[positionY + 1][positionX - 1])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX - 1)) {
+                    totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 1, x: positionX - 1 } });
                 }
-                totalMoves.push(temp);
             }
-        }
-        if (positionX != (constant.BOARD_WIDTH - 1) && check_pieces.isPlayerPieces(board[positionY + 1][positionX + 1])) {
-            if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX + 1)) {
-                const temp = board.map(row => [...row]);
-                temp[positionY + 1][positionX + 1] = board[positionY][positionX];
-                temp[positionY][positionX] = null;
-
-                // If Computer Pawon reached the last line of the opponent player, then it will replace with Queen 
-                if (positionY + 1 == constant.BOARD_LENGTH - 1) {
-                    temp[positionY + 1][positionX + 1] = constant.COMPUTER_QUEEN;
+            if (positionX + 1 < constant.BOARD_WIDTH && positionY + 1 < constant.BOARD_LENGTH && check_pieces.isPlayerPieces(board[positionY + 1][positionX + 1])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX + 1)) {
+                    totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 1, x: positionX + 1 } });
                 }
-                totalMoves.push(temp);
+            }
+
+        }
+
+        // if (pawnName == "playersPawn")
+        else {
+            // // Double forwoed move for first time
+            // if (positionY == constant.BOARD_LENGTH - 2 && board[positionY - 1][positionX] == null && board[positionY - 2][positionX] == null) {
+            //     if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY - 2, positionX)) {
+            //         totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY - 2, x: positionX } });
+            //     }
+            // }
+
+            // Checking forword move
+            if (board[positionY - 1][positionX] == null) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY - 1, positionX)) {
+                    totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY - 1, x: positionX } });
+                }
+            }
+
+            // Checking diagonally forward move
+            if (positionX > 0 && positionY > 0 && check_pieces.isComputerPieces(board[positionY - 1][positionX - 1])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY - 1, positionX - 1)) {
+                    totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY - 1, x: positionX - 1 } });
+                }
+            }
+            if (positionX + 1 < constant.BOARD_WIDTH && positionY > 0 && check_pieces.isComputerPieces(board[positionY - 1][positionX + 1])) {
+                if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY - 1, positionX + 1)) {
+                    totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY - 1, x: positionX + 1 } });
+                }
             }
         }
         return totalMoves;
@@ -76,5 +91,6 @@ function move(board, positionY, positionX) {
     }
 }
 
-module.exports = { move }
-// export { move }
+
+// module.exports = {move}
+export { move }
