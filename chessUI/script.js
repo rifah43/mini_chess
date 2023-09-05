@@ -5,22 +5,14 @@ const numbers = document.querySelector(".numbers");
 const letters = document.querySelector(".letters");
 
 import { initialize } from "../board.js";
-import * as constant from "../constant.js";
 import * as kingsSafety from '../moveFunction/kingsSafety.js';
 
 let white = true;
 let letter = "ABCDEFGH";
 console.log("Hi I'am Muktadul Islam")
 
-const upperPlayers = [constant.PLAYER_UPPER, constant.COMPUTER_UPPER]; 
-console.log(upperPlayers,"kkk");
-const randomUpperPlayer = upperPlayers[Math.floor(Math.random() * upperPlayers.length)];
-console.log(randomUpperPlayer,"iiii");
-
-const UpperPlayerName = randomUpperPlayer;
-
-const board = initialize(UpperPlayerName);
-kingsSafety.isThisMoveSafeForKing(board, constant.PLAYER_KING,randomUpperPlayer);
+const board = initialize();
+// kingsSafety.isThisMoveSafeForKing(board);
 
 boardGenerationAndPopulate(white);
 

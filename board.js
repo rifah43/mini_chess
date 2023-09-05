@@ -7,31 +7,31 @@ function initialize() {
     try {
         let board;
         // It's real
-        // board = [
-        //     [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT],
-        //     [constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN],
-        //     [null, null, null, null, null],
-        //     [null, null, null, null, null],
-        //     [constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN],
-        //     [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT]
-        // ];
+        board = [
+            [constant.COMPUTER_ROOK, constant.COMPUTER_BISHOP, constant.COMPUTER_KING, constant.COMPUTER_QUEEN, constant.COMPUTER_KNIGHT],
+            [constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN],
+            [null, null, null, null, null],
+            [null, null, null, null, null],
+            [constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN],
+            [constant.PLAYER_ROOK, constant.PLAYER_BISHOP, constant.PLAYER_KING, constant.PLAYER_QUEEN, constant.PLAYER_KNIGHT]
+        ];
 
         //for Demo checking
-        board = [
-            // [null, null, constant.COMPUTER_ROOK, null, null],
-            // [constant.PLAYER_BISHOP, null, null, null, null],
-            // [null, constant.COMPUTER_QUEEN, null, null, null],
-            // [null, null, constant.COMPUTER_KING, null, null],
-            // [null, null, null, null, constant.COMPUTER_PAWN],
-            // [null, null, null, null, null]
+        // board = [
+        //     // [null, null, constant.COMPUTER_ROOK, null, null],
+        //     // [constant.PLAYER_BISHOP, null, null, null, null],
+        //     // [null, constant.COMPUTER_QUEEN, null, null, null],
+        //     // [null, null, constant.COMPUTER_KING, null, null],
+        //     // [null, null, null, null, constant.COMPUTER_PAWN],
+        //     // [null, null, null, null, null]
 
-            [null, null, constant.PLAYER_ROOK, null, null],
-            [null, null, null, constant.PLAYER_PAWN, null],
-            [constant.PLAYER_QUEEN, null, constant.COMPUTER_KING, null, null],
-            [null, null, null, null, null],
-            [null, null, null, null, null],
-            [null, null, null, null, null]
-        ];
+        //     [null, null, constant.PLAYER_ROOK, null, null],
+        //     [null, null, null, constant.PLAYER_PAWN, null],
+        //     [constant.PLAYER_QUEEN, null, constant.COMPUTER_KING, null, null],
+        //     [null, null, null, null, null],
+        //     [null, null, null, null, null],
+        //     [null, null, null, null, null]
+        // ];
 
         return board;
     } catch (error) {
