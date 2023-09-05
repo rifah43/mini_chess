@@ -9,6 +9,8 @@ function boardGeneration(white,gameboard){
             if (!white) {
               square.classList.add("black");
             }
+            let pos= String(row)+","+String(col);
+            square.id= pos;
             white = !white;
         
             const pieceId = pieceInfo[row][col];
