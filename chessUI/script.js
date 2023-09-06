@@ -12,7 +12,6 @@ let letter = "ABCDEFGH";
 console.log("Hi I'am Muktadul Islam")
 
 const board = initialize();
-// kingsSafety.isThisMoveSafeForKing(board);
 
 boardGenerationAndPopulate(white);
 

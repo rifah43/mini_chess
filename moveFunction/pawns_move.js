@@ -11,7 +11,6 @@ function move(board, positionY, positionX) {
     try {
         let totalMoves = [];        //it will be like this [{current:{y:2, x:3]}, nextMove:{y:2, x:5]}}]
         let pawnName;
-
         if (check_pieces.isComputerPawn(board[positionY][positionX])) {
             pawnName = "computersPawn";
         }
@@ -32,9 +31,9 @@ function move(board, positionY, positionX) {
             //     }
             // }
 
-
             // Checking forword move
             if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
+                console.log("move ase");
                 if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX)) {
                     totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 1, x: positionX } });
                 }

@@ -1,12 +1,13 @@
 import { setPieceIcon } from "./placeIcons.js";
 import { pieceInfo } from "./layout.js";
-import { move as bishops_move } from "../moveFunction/bishops_move.js";
+import {getMoveList} from "./moveList.js";
 
-let draggedPiece = null;
+let selectedPiece = null;
 let currentPlayer = "white";
-let board=null;
-function boardGeneration(white, gameboard,bb) {
-  board=bb;
+let board = null;
+
+function boardGeneration(white, gameboard, bb) {
+  board = bb;
   for (let row = 0; row < 6; row++) {
     for (let col = 0; col < 5; col++) {
       let square = document.createElement("div");
@@ -26,89 +27,68 @@ function boardGeneration(white, gameboard,bb) {
 
         setPieceIcon(piece, pieceId);
         square.appendChild(piece);
-        piece.setAttribute("draggable", true);
 
-        piece.addEventListener("dragstart", handleDragStart);
-        piece.addEventListener("dragenter", handleDragEnter);
-        piece.addEventListener("dragleave", handleDragLeave);
+        piece.addEventListener("click", handlePieceClick);
       }
 
-      square.addEventListener("dragover", handleDragOver);
-      square.addEventListener("drop", handleDrop);
+      square.addEventListener("click", handleSquareClick);
 
       gameboard.appendChild(square);
     }
   }
 }
 
-function handleDragStart(e) {
+function handlePieceClick(e) {
   const pieceColor = e.target.id.startsWith("white") ? "white" : "black";
 
   if (pieceColor === currentPlayer) {
-    draggedPiece = e.target;
-    e.dataTransfer.setData("text/plain", e.target.id);
+    selectedPiece = e.target;
   } else {
     e.preventDefault();
   }
 }
 
-function handleDragEnter(e) {
-  e.preventDefault();
-  e.target.classList.add("valid-drop-target");
-}
-
-function handleDragLeave(e) {
-  e.target.classList.remove("valid-drop-target");
-}
-
-function handleDragOver(e) {
-  e.preventDefault();
-}
-
-function handleDrop(e) {
-  e.preventDefault();
-  if (e.target.classList.contains("square")) {
-    const pieceId = e.dataTransfer.getData("text/plain");
-    const sourceSquare = draggedPiece.parentElement; // Get the square containing the dragged piece
+function handleSquareClick(e) {
+  if (selectedPiece) {
+    const sourceSquare = selectedPiece.parentElement;
     const nums = sourceSquare.id.split(",");
-    console.log(pieceId.endsWith("bishop"))
+    console.log(nums);
 
-    if (pieceId.endsWith("bishop")) {
-      console.log(board)
-      const possibleMoves = bishops_move(board, nums[0], nums[1]);
-      console.log("Possible Moves:", possibleMoves);
-      // Highlight valid drop targets (possible move squares)
-      for (const move of possibleMoves) {
-        const targetSquare = document.getElementById(
-          `${move.nextPosition.y},${move.nextPosition.x}`
-        );
-        if (targetSquare) {
-          targetSquare.classList.add("valid-drop-target");
-        }
+    let possibleMoves = [];
+    possibleMoves= getMoveList(selectedPiece,board,nums);
+    for (const move of possibleMoves) {
+      console.log(move);
+      const targetSquare = document.getElementById(
+        `${move.nextPosition.y},${move.nextPosition.x}`
+      );
+      if (targetSquare) {
+        targetSquare.classList.add("valid-drop-target");
+        targetSquare.addEventListener("click", handleValidSquareClick);
       }
     }
-
-    const targetSquare = e.target;
-
-    const existingPiece = targetSquare.querySelector(".piece");
-
-    if (existingPiece) {
-      targetSquare.removeChild(existingPiece);
-      targetSquare.appendChild(draggedPiece);
-    } else {
-      targetSquare.appendChild(draggedPiece);
-    }
-
-    // Remove highlighting from all squares
-    const allSquares = document.querySelectorAll(".square");
-    allSquares.forEach((square) => {
-      square.classList.remove("valid-drop-target");
-    });
-
-    console.log("Target Square:", targetSquare.id);
-
-    currentPlayer = currentPlayer === "white" ? "black" : "white";
   }
+}
+
+function handleValidSquareClick(e) {
+  const targetSquare = e.target;
+  const existingPiece = targetSquare.querySelector(".piece");
+
+  if (existingPiece) {
+    targetSquare.removeChild(existingPiece);
+  }
+
+  targetSquare.appendChild(selectedPiece);
+  selectedPiece = null;
+
+  const allSquares = document.querySelectorAll(".square");
+  allSquares.forEach((square) => {
+    square.classList.remove("valid-drop-target");
+    square.removeEventListener("click", handleValidSquareClick);
+    console.log("tata");
+  });
+  console.log("move swap");
+  currentPlayer = currentPlayer === "white" ? "black" : "white";
+  console.log(currentPlayer);
 }
 
 export { boardGeneration };

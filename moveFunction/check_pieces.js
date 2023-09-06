@@ -2,6 +2,8 @@
 import * as constant from '../constant.js';
 
 function isComputerPieces(piece) {
+    console.log(constant.COMPUTER_PAWN);
+    console.log(piece);
     if (piece === null) return false;
 
     else if (piece === constant.COMPUTER_BISHOP ||
