@@ -75,12 +75,25 @@ function handleSquareClick(e) {
 function handleValidSquareClick(e) {
   const targetSquare = e.target;
   targetSquare.textContent = ""
+  const sourceSquare = selectedPiece.parentElement;
+  const sourcePos = sourceSquare.id.split(",");
+  const targetPos = targetSquare.id.split(",");
+
+  const sourceRow = parseInt(sourcePos[0]);
+  const sourceCol = parseInt(sourcePos[1]);
+  const targetRow = parseInt(targetPos[0]);
+  const targetCol = parseInt(targetPos[1]);
+
+  board[targetRow][targetCol] = board[sourceRow][sourceCol];
+  board[sourceRow][sourceCol] = null;
 
   targetSquare.appendChild(selectedPiece);
-  selectedPiece = null;
+
+selectedPiece = null;
   clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   console.log(currentPlayer);
+  console.log(board);
 }
 
 function clearValidMoveSquares() {
