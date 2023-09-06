@@ -65,7 +65,7 @@ function handleSquareClick(e) {
       );
       if (targetSquare) {
         targetSquare.classList.add("valid-drop-target");
-        targetSquare.textContent = "#";
+        targetSquare.style.backgroundColor = "green";
         targetSquare.addEventListener("click", handleValidSquareClick);
       }
     }
@@ -75,6 +75,11 @@ function handleSquareClick(e) {
 function handleValidSquareClick(e) {
   const targetSquare = e.target;
   targetSquare.textContent = ""
+  if (targetSquare.classList.contains("black")) {
+    targetSquare.style.backgroundColor = "rgb(202, 33, 33)";
+  } else {
+    targetSquare.style.backgroundColor = "rgb(235, 254, 226)";
+  }
   const sourceSquare = selectedPiece.parentElement;
   const sourcePos = sourceSquare.id.split(",");
   const targetPos = targetSquare.id.split(",");
