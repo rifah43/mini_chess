@@ -18,19 +18,12 @@ function initialize() {
 
         //for Demo checking
         // board = [
-        //     // [null, null, constant.COMPUTER_ROOK, null, null],
-        //     // [constant.PLAYER_BISHOP, null, null, null, null],
-        //     // [null, constant.COMPUTER_QUEEN, null, null, null],
-        //     // [null, null, constant.COMPUTER_KING, null, null],
-        //     // [null, null, null, null, constant.COMPUTER_PAWN],
-        //     // [null, null, null, null, null]
-
-        //     [null, null, constant.PLAYER_ROOK, null, null],
-        //     [null, null, null, constant.PLAYER_PAWN, null],
-        //     [constant.PLAYER_QUEEN, null, constant.COMPUTER_KING, null, null],
+        //     [constant.COMPUTER_ROOK, null, null, null, null],
         //     [null, null, null, null, null],
-        //     [null, null, null, null, null],
-        //     [null, null, null, null, null]
+        //     [constant.COMPUTER_ROOK, null, null, null, null],
+        //     [constant.COMPUTER_QUEEN, null, constant.PLAYER_KING, null, null],
+        //     [null, null, null, null, constant.COMPUTER_ROOK],
+        //     [constant.PLAYER_ROOK, null, null, null, constant.COMPUTER_KING]
         // ];
 
         return board;
@@ -78,6 +71,7 @@ function printAllMoves(board, allMovesArray) {
 
             const temp = board.map(row => [...row]);
 
+            // If Computer Pawon reached the last line of the opponent player, then it will replace with Queen
             if (check_pieces.isComputerPawn(board[move.currentPosition.y][move.currentPosition.x]) && move.nextPosition.y == constant.BOARD_LENGTH - 1) {
                 temp[move.nextPosition.y][move.nextPosition.x] = constant.COMPUTER_QUEEN;
                 temp[move.currentPosition.y][move.currentPosition.x] = null;
@@ -91,8 +85,6 @@ function printAllMoves(board, allMovesArray) {
                 temp[move.currentPosition.y][move.currentPosition.x] = null;
             }
 
-
-            // If Computer Pawon reached the last line of the opponent player, then it will replace with Queen
             if (printBoard(temp) == -1) {
                 return -1;
             }

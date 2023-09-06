@@ -4,21 +4,19 @@ const gameboard = document.querySelector(".board");
 const numbers = document.querySelector(".numbers");
 const letters = document.querySelector(".letters");
 
-import { initialize } from "../board.js";
-import * as kingsSafety from '../moveFunction/kingsSafety.js';
+import { initializeBoard as initialize } from '../chess_game/chess_game.js';
 
 let white = true;
 let letter = "ABCDEFGH";
 
 // Testing By Muktadul
-import * as Board from '../board.js';
-import * as pieces_move from '../moveFunction/pieces_move.js';
+import * as chess_game from '../chess_game/chess_game.js';
 
-const board1 = Board.initialize();
-Board.printBoard(board1);
+const board1 = chess_game.initializeBoard();
+chess_game.printBoard(board1);
 
-// Board.printAllMoves(board1, pieces_move.getAllMovesForA_Position(board, 3, 2))
-Board.printAllMoves(board1, pieces_move.getAllComputersMoves(board1))
+// chess_game.printAllMoves(board1, chess_game.getAllMovesForA_Position(board1, 3, 2))
+chess_game.printAllMoves(board1, chess_game.getAllComputersMoves(board1))
 // Testing End
 
 const board = initialize();

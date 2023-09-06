@@ -1,4 +1,4 @@
-import * as constant from "../constant.js";
+import {constant} from '../chess_game/chess_game.js';
 const pieceInfo = [];
 function generatePieceInfo(board){
 

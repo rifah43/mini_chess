@@ -396,5 +396,6 @@ function isItCheckByKnight(board, kingsPosition, attackedBy, checkingPices) {
     return isItCheck;
 }
 
-// module.exports = { isThisMoveSafeForKing, isItCheck };
+
+// module.exports = { isThisMoveSafeForKing, isItCheck};
 export { isThisMoveSafeForKing, isItCheck };

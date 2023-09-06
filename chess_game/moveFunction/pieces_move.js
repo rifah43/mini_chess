@@ -61,7 +61,7 @@ function getAllComputersMoves(board) {
                 else if (board[y][x] == constant.COMPUTER_KING) {
                     totalMoves = totalMoves.concat(kings_moves(board, y, x));
                 }
-                else {
+                else if (board[y][x] == constant.COMPUTER_PAWN){
                     totalMoves = totalMoves.concat(pawns_moves(board, y, x));
                 }
             }
@@ -82,34 +82,37 @@ function getAllComputersMoves(board) {
 
 function getAllMovesForA_Position(board, positionY, positionX) {
     let totalMoves = [];
-    if (board[positionY][positionX] == null) return null;
-    else if (board[positionY][positionX] == constant.PLAYER_BISHOP) {
+    let piece = board[positionY][positionX]; 
+
+    if (piece == null) return null;
+    else if (piece == constant.PLAYER_BISHOP || piece == constant.COMPUTER_BISHOP) {
         totalMoves =  bishops_moves(board, positionY, positionX);
     }
-    else if (board[positionY][positionX] == constant.PLAYER_ROOK) {
+    else if (piece == constant.PLAYER_ROOK || piece == constant.COMPUTER_ROOK) {
         totalMoves = rooks_moves(board, positionY, positionX);
     }
-    else if (board[positionY][positionX] == constant.PLAYER_KNIGHT) {
+    else if (piece == constant.PLAYER_KNIGHT || piece == constant.COMPUTER_KNIGHT) {
         totalMoves = knights_moves(board, positionY, positionX);
     }
-    else if (board[positionY][positionX] == constant.PLAYER_QUEEN) {
+    else if (piece == constant.PLAYER_QUEEN || piece == constant.COMPUTER_QUEEN) {
         totalMoves = queens_moves(board, positionY, positionX);
     }
-    else if (board[positionY][positionX] == constant.PLAYER_KING) {
+    else if (piece == constant.PLAYER_KING || piece == constant.PLAYER_KING) {
         totalMoves = kings_moves(board, positionY, positionX);
     }
-    else {
+    else if (piece == constant.PLAYER_PAWN || piece == constant.COMPUTER_PAWN){
         totalMoves = pawns_moves(board, positionY, positionX);
     }
 
+
     if(totalMoves.length == 0){
-        null;
+        return null;
     }
     else if (kingsSafety.isItCheck(board, constant.PLAYER_KING)[0]) {
         return checkRemoverMoves(board, constant.PLAYER_KING, totalMoves);
     }
     else {
-        totalMoves;
+        return totalMoves;
     }
 }
 
