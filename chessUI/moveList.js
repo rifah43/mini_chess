@@ -3,6 +3,7 @@ import { move as pawns_move } from "../moveFunction/pawns_move.js";
 import { move as knights_move } from "../moveFunction/knights_move.js";
 import { move as rooks_move } from "../moveFunction/rooks_move.js";
 import { move as queens_move } from "../moveFunction/queens_move.js";
+import { move as kings_move } from "../moveFunction/kings_move.js";
 
 function getMoveList(selectedPiece,board,nums){
     if (selectedPiece.id.endsWith("bishop")) {
@@ -20,6 +21,10 @@ function getMoveList(selectedPiece,board,nums){
       } else if (selectedPiece.id.endsWith("queen")) {
         console.log("queen");
         return queens_move(board, nums[0], nums[1]);
+      }
+      else if (selectedPiece.id.endsWith("king")) {
+        console.log("king");
+        return kings_move(board, nums[0], nums[1]);
       }
 }
 

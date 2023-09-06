@@ -1,6 +1,7 @@
 import { setPieceIcon } from "./placeIcons.js";
 import { pieceInfo } from "./layout.js";
 import { getMoveList } from "./moveList.js";
+import {evaluateBoard} from "./evaluation.js";
 
 let selectedPiece = null;
 let currentPlayer = "white";
@@ -99,6 +100,7 @@ selectedPiece = null;
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   console.log(currentPlayer);
   console.log(board);
+  console.log(evaluateBoard(board));
 }
 
 function clearValidMoveSquares() {
