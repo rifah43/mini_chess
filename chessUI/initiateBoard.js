@@ -1,5 +1,5 @@
 import { setPieceIcon } from "./placeIcons.js";
-import { pieceInfo } from "./layout.js";
+import { pieceInfo,generatePieceInfo } from "./layout.js";
 import { getMoveList } from "./moveList.js";
 import {evaluateBoard} from "./evaluation.js";
 
@@ -19,7 +19,7 @@ function boardGeneration(white, gameboard, bb) {
       let pos = String(row) + "," + String(col);
       square.id = pos;
       white = !white;
-
+      generatePieceInfo(board)
       const pieceId = pieceInfo[row][col];
       if (pieceId) {
         const piece = document.createElement("div");
