@@ -1,6 +1,6 @@
 import { setPieceIcon } from "./placeIcons.js";
 import { pieceInfo } from "./layout.js";
-import {getMoveList} from "./moveList.js";
+import { getMoveList } from "./moveList.js";
 
 let selectedPiece = null;
 let currentPlayer = "white";
@@ -43,6 +43,8 @@ function handlePieceClick(e) {
 
   if (pieceColor === currentPlayer) {
     selectedPiece = e.target;
+    clearValidMoveSquares();
+    highlightValidMoveSquares(selectedPiece);
   } else {
     e.preventDefault();
   }
@@ -55,7 +57,7 @@ function handleSquareClick(e) {
     console.log(nums);
 
     let possibleMoves = [];
-    possibleMoves= getMoveList(selectedPiece,board,nums);
+    possibleMoves = getMoveList(selectedPiece, board, nums);
     for (const move of possibleMoves) {
       console.log(move);
       const targetSquare = document.getElementById(
@@ -63,6 +65,7 @@ function handleSquareClick(e) {
       );
       if (targetSquare) {
         targetSquare.classList.add("valid-drop-target");
+        targetSquare.textContent = "#";
         targetSquare.addEventListener("click", handleValidSquareClick);
       }
     }
@@ -71,24 +74,37 @@ function handleSquareClick(e) {
 
 function handleValidSquareClick(e) {
   const targetSquare = e.target;
-  const existingPiece = targetSquare.querySelector(".piece");
-
-  if (existingPiece) {
-    targetSquare.removeChild(existingPiece);
-  }
+  targetSquare.textContent = ""
 
   targetSquare.appendChild(selectedPiece);
   selectedPiece = null;
-
-  const allSquares = document.querySelectorAll(".square");
-  allSquares.forEach((square) => {
-    square.classList.remove("valid-drop-target");
-    square.removeEventListener("click", handleValidSquareClick);
-    console.log("tata");
-  });
-  console.log("move swap");
+  clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   console.log(currentPlayer);
+}
+
+function clearValidMoveSquares() {
+  const validSquares = document.querySelectorAll(".valid-drop-target");
+  validSquares.forEach((square) => {
+    square.classList.remove("valid-drop-target");
+    square.removeEventListener("click", handleValidSquareClick);
+  });
+}
+
+function highlightValidMoveSquares(piece) {
+  const sourceSquare = piece.parentElement;
+  const nums = sourceSquare.id.split(",");
+  let possibleMoves = getMoveList(piece, board, nums);
+
+  for (const move of possibleMoves) {
+    const targetSquare = document.getElementById(
+      `${move.nextPosition.y},${move.nextPosition.x}`
+    );
+    if (targetSquare) {
+      targetSquare.classList.add("valid-drop-target");
+      targetSquare.addEventListener("click", handleValidSquareClick);
+    }
+  }
 }
 
 export { boardGeneration };

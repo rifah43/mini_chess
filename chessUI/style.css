@@ -15,7 +15,9 @@
     height: 543px;
     border: 2px solid rgb(0, 0, 0);
 }
-
+.valid-drop-target{
+    background-color: rgb(68, 213, 0);
+}
 .square {
     font-size: 4rem;
     display: flex;

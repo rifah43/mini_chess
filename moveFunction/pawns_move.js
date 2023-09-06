@@ -30,7 +30,7 @@ function move(board, positionY, positionX) {
             //         totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 2, x: positionX } });
             //     }
             // }
-
+            console.log("move aise");
             // Checking forword move
             if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
                 console.log("move ase");
