@@ -9,7 +9,17 @@ import * as kingsSafety from '../moveFunction/kingsSafety.js';
 
 let white = true;
 let letter = "ABCDEFGH";
-console.log("Hi I'am Muktadul Islam")
+
+// Testing By Muktadul
+import * as Board from '../board.js';
+import * as pieces_move from '../moveFunction/pieces_move.js';
+
+const board1 = Board.initialize();
+Board.printBoard(board1);
+
+// Board.printAllMoves(board1, pieces_move.getAllMovesForA_Position(board, 3, 2))
+Board.printAllMoves(board1, pieces_move.getAllComputersMoves(board1))
+// Testing End
 
 const board = initialize();
 

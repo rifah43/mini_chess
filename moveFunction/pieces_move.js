@@ -5,7 +5,8 @@
 // const knights_moves = require('./knights_move.js').move;
 // const queens_moves = require('./queens_move.js').move;
 // const constant = require('../constant.js');
-// const check_pieces = require('./check_pieces.js')
+// const check_pieces = require('./check_pieces.js');
+// const kingsSafety = require('./kingsSafety.js');
 
 import { move as pawns_moves } from './pawns_move.js';
 import { move as rooks_moves } from './rooks_move.js';
@@ -15,9 +16,31 @@ import { move as knights_moves } from './knights_move.js';
 import { move as queens_moves } from './queens_move.js';
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
+import * as kingsSafety from './kingsSafety.js';
 
+function checkRemoverMoves(board, kingsName, totalMoves) {
+    let totalValidMoves = [];
 
-function getAllComputersMove(board) {
+    totalMoves.forEach(move => {
+        const temp = board.map(row => [...row]);
+        temp[move.nextPosition.y][move.nextPosition.x] = board[move.currentPosition.y][move.currentPosition.x];
+        temp[move.currentPosition.y][move.currentPosition.x] = null;
+
+        if (!kingsSafety.isItCheck(temp, kingsName)[0]) {
+            totalValidMoves.push(move);
+        }
+    });
+
+    if (totalValidMoves.length == 0) {
+        return null;
+    }
+    else {
+        return totalValidMoves;
+    }
+
+}
+
+function getAllComputersMoves(board) {
     let totalMoves = [];
 
     for (let y = 0; y < constant.BOARD_LENGTH; y++) {
@@ -44,49 +67,58 @@ function getAllComputersMove(board) {
             }
         }
     }
-    return totalMoves;
-}
 
-function getAllMoves(board, positionY, positionX) {
-    if (board[positionY][positionX] ==  null) return null;
-    else if (board[positionY][positionX] == constant.COMPUTER_BISHOP) {
-        return bishops_moves(board, positionY, positionX);
+    if(totalMoves.length == 0){
+        return null;
     }
-    else if (board[positionY][positionX] == constant.COMPUTER_ROOK) {
-        return rooks_moves(board, positionY, positionX);
-    }
-    else if (board[positionY][positionX] == constant.COMPUTER_KNIGHT) {
-        return knights_moves(board, positionY, positionX);
-    }
-    else if (board[positionY][positionX] == constant.COMPUTER_QUEEN) {
-        return queens_moves(board, positionY, positionX);
-    }
-    else if (board[positionY][positionX] == constant.COMPUTER_KING) {
-        return kings_moves(board, positionY, positionX);
+    else if (kingsSafety.isItCheck(board, constant.COMPUTER_KING)[0]) {
+        return checkRemoverMoves(board, constant.COMPUTER_KING, totalMoves);
     }
     else {
-        return pawns_moves(board, positionY, positionX);
+        return totalMoves;
+    }
+}
+
+
+function getAllMovesForA_Position(board, positionY, positionX) {
+    let totalMoves = [];
+    if (board[positionY][positionX] == null) return null;
+    else if (board[positionY][positionX] == constant.PLAYER_BISHOP) {
+        totalMoves =  bishops_moves(board, positionY, positionX);
+    }
+    else if (board[positionY][positionX] == constant.PLAYER_ROOK) {
+        totalMoves = rooks_moves(board, positionY, positionX);
+    }
+    else if (board[positionY][positionX] == constant.PLAYER_KNIGHT) {
+        totalMoves = knights_moves(board, positionY, positionX);
+    }
+    else if (board[positionY][positionX] == constant.PLAYER_QUEEN) {
+        totalMoves = queens_moves(board, positionY, positionX);
+    }
+    else if (board[positionY][positionX] == constant.PLAYER_KING) {
+        totalMoves = kings_moves(board, positionY, positionX);
+    }
+    else {
+        totalMoves = pawns_moves(board, positionY, positionX);
+    }
+
+    if(totalMoves.length == 0){
+        null;
+    }
+    else if (kingsSafety.isItCheck(board, constant.PLAYER_KING)[0]) {
+        return checkRemoverMoves(board, constant.PLAYER_KING, totalMoves);
+    }
+    else {
+        totalMoves;
     }
 }
 
 // module.exports = {
-//     pawns_moves,
-//     rooks_moves,
-//     bishops_moves,
-//     kings_moves,
-//     knights_moves,
-//     queens_moves,
-//     getAllComputersMove,
-//     getAllMoves
+//     getAllComputersMoves,
+//     getAllMovesForA_Position
 // }
 
 export{
-    pawns_moves,
-    rooks_moves,
-    bishops_moves,
-    kings_moves,
-    knights_moves,
-    queens_moves,
-    getAllComputersMove,
-    getAllMoves
+    getAllComputersMoves,
+    getAllMovesForA_Position
 }
