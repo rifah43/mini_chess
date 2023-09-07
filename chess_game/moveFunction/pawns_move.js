@@ -31,7 +31,9 @@ function move(board, positionY, positionX) {
             //     }
             // }
             // Checking forword move
+            // console.log("Hello", positionY+1,  positionX);
             if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
+                console.log("Hello2");
                 if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX)) {
                     totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 1, x: positionX } });
                 }
