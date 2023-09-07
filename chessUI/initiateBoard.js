@@ -1,6 +1,7 @@
 import { setPieceIcon } from "./placeIcons.js";
 import { pieceInfo,generatePieceInfo } from "./layout.js";
-import { getMoveList } from "./moveList.js";
+// import { getMoveList } from "./moveList.js";
+import {getAllMovesForA_Position} from "../chess_game/moveFunction/pieces_move.js";
 import {evaluateBoard} from "./evaluation.js";
 
 let selectedPiece = null;
@@ -58,7 +59,7 @@ function handleSquareClick(e) {
     console.log(nums);
 
     let possibleMoves = [];
-    possibleMoves = getMoveList(selectedPiece, board, nums);
+    possibleMoves = getAllMovesForA_Position(board, nums[0],nums[1]);
     for (const move of possibleMoves) {
       console.log(move);
       const targetSquare = document.getElementById(
@@ -114,7 +115,7 @@ function clearValidMoveSquares() {
 function highlightValidMoveSquares(piece) {
   const sourceSquare = piece.parentElement;
   const nums = sourceSquare.id.split(",");
-  let possibleMoves = getMoveList(piece, board, nums);
+  let possibleMoves = getAllMovesForA_Position(board, nums[0],nums[1]);
 
   for (const move of possibleMoves) {
     const targetSquare = document.getElementById(
