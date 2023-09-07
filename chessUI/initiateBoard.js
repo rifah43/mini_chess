@@ -109,6 +109,11 @@ selectedPiece = null;
 function clearValidMoveSquares() {
   const validSquares = document.querySelectorAll(".valid-drop-target");
   validSquares.forEach((square) => {
+    if (square.classList.contains("black")) {
+      square.style.backgroundColor = "rgb(202, 33, 33)";
+    } else {
+      square.style.backgroundColor = "rgb(235, 254, 226)";
+    }
     square.classList.remove("valid-drop-target");
     square.removeEventListener("click", handleValidSquareClick);
   });
