@@ -2,12 +2,13 @@ import { setPieceIcon } from "./placeIcons.js";
 import { pieceInfo,generatePieceInfo, findKing } from "./layout.js";
 // import { getMoveList } from "./moveList.js";
 import {getAllMovesForA_Position} from "../chess_game/chess_game.js";
-import {evaluateBoard} from "./evaluation.js";
 import {isItCheck} from "../chess_game/moveFunction/kingsSafety.js";
+import {evaluateBoard} from "./evaluation.js";
 
 let selectedPiece = null;
 let currentPlayer = "white";
 let board = null;
+let evaluation= parseInt(0);
 
 function boardGeneration(white, gameboard, bb) {
   board = bb;
@@ -42,6 +43,14 @@ function boardGeneration(white, gameboard, bb) {
 }
 
 function handlePieceClick(e) {
+  evaluation += parseInt(evaluateBoard(board));
+  console.log(`Board evaluation: ${evaluation}`);
+  const king= findKing(board, currentPlayer);
+    console.log(isItCheck(board,king)[0]);
+    if(isItCheck(board,king)[0])
+    {
+      alert(`${currentPlayer} king is on check!`);
+    }
   const pieceColor = e.target.id.startsWith("white") ? "white" : "black";
 
   if (pieceColor === currentPlayer) {
@@ -54,12 +63,6 @@ function handlePieceClick(e) {
 }
 
 function handleSquareClick(e) {
-  const king= findKing(board, currentPlayer);
-    console.log(isItCheck(board,king)[0]);
-    if(isItCheck(board,king)[0])
-    {
-      alert(`${currentPlayer} king is on check!`);
-    }
   if (selectedPiece) {
     const sourceSquare = selectedPiece.parentElement;
     const nums = sourceSquare.id.split(",");
@@ -112,7 +115,6 @@ selectedPiece = null;
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   console.log(currentPlayer);
   console.log(board);
-  console.log(evaluateBoard(board));
 }
 
 function clearValidMoveSquares() {

@@ -1,3 +1,5 @@
+import { findKing } from "./layout.js";
+import {isItCheck} from "../chess_game/moveFunction/kingsSafety.js";
 const pieceValues = {
   'pa': 1,
   'kn': 3,
@@ -17,18 +19,33 @@ function evaluateBoard(board) {
 
       if (square === null) continue;
 
-      const [color, piece] = square.split('_');
+      const [type, piece] = square.split('_');
       const pieceValue = pieceValues[piece];
 
-      if (color === 'p') {
+      if (type === 'p') {
         totalEvaluation += pieceValue;
       } else {
         totalEvaluation -= pieceValue;
       }
     }
   }
+  const c_king= findKing(board, "white");
+  const b_king= findKing(board, "black");
+  console.log(c_king);
+  console.log(b_king);
+  console.log(isItCheck(board,b_king));
+  if (isItCheck(board,b_king)[0]) {
+    console.log("bking");
+    totalEvaluation += 2;
+    console.log(totalEvaluation);
+  }
 
-  return totalEvaluation;
+  if (isItCheck(board,c_king)[0]) {
+    totalEvaluation -= 2;
+  }
+
+  console.log(totalEvaluation,"----");
+  return -totalEvaluation;
 }
 
 export { evaluateBoard };
