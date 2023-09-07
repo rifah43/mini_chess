@@ -39,7 +39,25 @@ for (let row = 0; row < board.length; row++) {
   pieceInfo.push(pieceRow);
 }
 }
+function findKing(board, cp) {
+  console.log(cp);
+  let p = null;
+  if (cp == "white") {
+    p = "p";
+  } else {
+    p = "c";
+  }
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      const piece = board[row][col];
+      if (piece && piece.startsWith(p) && piece.endsWith("ki")) {
+        return piece;
+      }
+    }
+  }
+  return null;
+}
 
-export { pieceInfo, generatePieceInfo };
+export { pieceInfo, generatePieceInfo, findKing };
 
   //quick chess layout

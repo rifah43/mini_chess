@@ -1,8 +1,9 @@
 import { setPieceIcon } from "./placeIcons.js";
-import { pieceInfo,generatePieceInfo } from "./layout.js";
+import { pieceInfo,generatePieceInfo, findKing } from "./layout.js";
 // import { getMoveList } from "./moveList.js";
 import {getAllMovesForA_Position} from "../chess_game/chess_game.js";
 import {evaluateBoard} from "./evaluation.js";
+import {isItCheck} from "../chess_game/moveFunction/kingsSafety.js";
 
 let selectedPiece = null;
 let currentPlayer = "white";
@@ -53,6 +54,12 @@ function handlePieceClick(e) {
 }
 
 function handleSquareClick(e) {
+  const king= findKing(board, currentPlayer);
+    console.log(isItCheck(board,king)[0]);
+    if(isItCheck(board,king)[0])
+    {
+      alert(`${currentPlayer} king is on check!`);
+    }
   if (selectedPiece) {
     const sourceSquare = selectedPiece.parentElement;
     const nums = sourceSquare.id.split(",");
@@ -61,7 +68,9 @@ function handleSquareClick(e) {
     let possibleMoves = [];
     console.log("index= ",  parseInt(nums[0]), parseInt(nums[1]))
     possibleMoves = getAllMovesForA_Position(board, parseInt(nums[0]), parseInt(nums[1]));
-    console.log(possibleMoves)
+    if(!possibleMoves){
+      alert("This piece has no possible moves!")
+    }
     for (const move of possibleMoves) {
       console.log(move);
       const targetSquare = document.getElementById(
