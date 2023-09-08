@@ -25,8 +25,8 @@ function isOpositeKingIsNear(board, nextMoveY, nextMoveX, king) {
 }
 
 
-function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMoveY, nextMoveX) {
-    if (board[nextMoveY][nextMoveX] == null || check_pieces.isPlayerPieces(board[nextMoveY][nextMoveX])) {
+function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMoveY, nextMoveX, check_pieces_function) {
+    if (board[nextMoveY][nextMoveX] == null || check_pieces_function(board[nextMoveY][nextMoveX])) {
 
         let king = board[currentPositionY][currentPositionX];
 
@@ -54,21 +54,29 @@ function safeMove(totalMoves, board, currentPositionY, currentPositionX, nextMov
 function move(board, positionY, positionX) {
     try {
         let totalMoves = [];
-        if (board[positionY][positionX] != constant.COMPUTER_KING && board[positionY][positionX] != constant.PLAYER_KING) {
+        let check_pieces_function;
+
+        if (board[positionY][positionX] == constant.COMPUTER_KING){
+            check_pieces_function = check_pieces.isPlayerPieces;
+        }
+        else if(board[positionY][positionX] == constant.PLAYER_KING) {
+            check_pieces_function = check_pieces.isComputerPieces;
+        }
+        else{
             console.log("There is no king in position [", currentPositionY, currentPositionX, "] !!!!!");
             return null;
         }
 
         let x = positionX, y = positionY;
-        if (x - 1 >= 0 && y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x - 1);
-        if (y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x);
-        if (x + 1 < constant.BOARD_WIDTH && y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x + 1);
-        if (x + 1 < constant.BOARD_WIDTH) safeMove(totalMoves, board, y, x, y, x + 1);
+        if (x - 1 >= 0 && y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x - 1, check_pieces_function);
+        if (y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x, check_pieces_function);
+        if (x + 1 < constant.BOARD_WIDTH && y - 1 >= 0) safeMove(totalMoves, board, y, x, y - 1, x + 1, check_pieces_function);
+        if (x + 1 < constant.BOARD_WIDTH) safeMove(totalMoves, board, y, x, y, x + 1, check_pieces_function);
 
-        if (x + 1 < constant.BOARD_WIDTH && y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x + 1);
-        if (y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x);
-        if (x - 1 >= 0 && y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x - 1);
-        if (x - 1 >= 0) safeMove(totalMoves, board, y, x, y, x - 1);
+        if (x + 1 < constant.BOARD_WIDTH && y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x + 1, check_pieces_function);
+        if (y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x, check_pieces_function);
+        if (x - 1 >= 0 && y + 1 < constant.BOARD_LENGTH) safeMove(totalMoves, board, y, x, y + 1, x - 1, check_pieces_function);
+        if (x - 1 >= 0) safeMove(totalMoves, board, y, x, y, x - 1, check_pieces_function);
 
 
         return totalMoves;
