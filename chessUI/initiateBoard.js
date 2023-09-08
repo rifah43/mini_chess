@@ -1,9 +1,9 @@
 import { setPieceIcon } from "./placeIcons.js";
 import { pieceInfo,generatePieceInfo, findKing } from "./layout.js";
-// import { getMoveList } from "./moveList.js";
-import {getAllMovesForA_Position} from "../chess_game/chess_game.js";
+import {getAllMovesForA_Position, getAllComputersMoves} from "../chess_game/chess_game.js";
 import {isItCheck} from "../chess_game/moveFunction/kingsSafety.js";
 import {evaluateBoard} from "./evaluation.js";
+import { makeAIMove } from "./movement.js";
 
 let selectedPiece = null;
 let currentPlayer = "white";
@@ -69,7 +69,6 @@ function handleSquareClick(e) {
     console.log(nums);
 
     let possibleMoves = [];
-    console.log("index= ",  parseInt(nums[0]), parseInt(nums[1]))
     possibleMoves = getAllMovesForA_Position(board, parseInt(nums[0]), parseInt(nums[1]));
     if(!possibleMoves){
       alert("This piece has no possible moves!")
@@ -113,6 +112,12 @@ function handleValidSquareClick(e) {
 selectedPiece = null;
   clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
+  if(currentPlayer=== "black"){
+    const { newBoard, newCurrentPlayer } = makeAIMove(board, currentPlayer);
+  board = newBoard;
+  currentPlayer = newCurrentPlayer;
+  }
+  console.log("computer moves:", getAllComputersMoves(board));
   console.log(currentPlayer);
   console.log(board);
 }

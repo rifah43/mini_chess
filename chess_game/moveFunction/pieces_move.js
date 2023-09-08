@@ -79,6 +79,45 @@ function getAllComputersMoves(board) {
     }
 }
 
+function getAllPlayerMoves(board) {
+    let totalMoves = [];
+
+    for (let y = 0; y < constant.BOARD_LENGTH; y++) {
+        for (let x = 0; x < constant.BOARD_WIDTH; x++) {
+            if (check_pieces.isPlayerPieces(board[y][x])) {
+                if (board[y][x] == constant.PLAYER_BISHOP) {
+                    totalMoves = totalMoves.concat(bishops_moves(board, y, x));
+                }
+                else if (board[y][x] == constant.PLAYER_ROOK) {
+                    totalMoves = totalMoves.concat(rooks_moves(board, y, x));
+                }
+                else if (board[y][x] == constant.PLAYER_KNIGHT) {
+                    totalMoves = totalMoves.concat(knights_moves(board, y, x));
+                }
+                else if (board[y][x] == constant.PLAYER_QUEEN) {
+                    totalMoves = totalMoves.concat(queens_moves(board, y, x));
+                }
+                else if (board[y][x] == constant.PLAYER_KING) {
+                    totalMoves = totalMoves.concat(kings_moves(board, y, x));
+                }
+                else if (board[y][x] == constant.PLAYER_PAWN){
+                    totalMoves = totalMoves.concat(pawns_moves(board, y, x));
+                }
+            }
+        }
+    }
+
+    if(totalMoves.length == 0){
+        return null;
+    }
+    else if (kingsSafety.isItCheck(board, constant.COMPUTER_KING)[0]) {
+        return checkRemoverMoves(board, constant.COMPUTER_KING, totalMoves);
+    }
+    else {
+        return totalMoves;
+    }
+}
+
 
 function getAllMovesForA_Position(board, positionY, positionX) {
     let totalMoves = [];
@@ -126,5 +165,6 @@ function getAllMovesForA_Position(board, positionY, positionX) {
 
 export{
     getAllComputersMoves,
-    getAllMovesForA_Position
+    getAllMovesForA_Position,
+    getAllPlayerMoves
 }

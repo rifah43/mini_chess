@@ -16,6 +16,7 @@ const printBoard = Board.printBoard;
 
 const getAllMovesForA_Position = pieces_move.getAllMovesForA_Position;
 const getAllComputersMoves = pieces_move.getAllComputersMoves;
+const getAllPlayerMoves = pieces_move.getAllPlayerMoves;
 
 const isItCheck = kingsSafety.isItCheck;
 const isItCheckMate = checkMateChecker.isItCheckMate;
@@ -39,5 +40,6 @@ export{
     getAllComputersMoves,
     isItCheck,
     isItCheckMate,
+    getAllPlayerMoves,
     constant
 };
