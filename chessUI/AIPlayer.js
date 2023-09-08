@@ -1,41 +1,44 @@
 import { evaluateBoard } from "./evaluation.js";
 import { getAllComputersMoves, getAllPlayerMoves } from "../chess_game/chess_game.js";
-import { isItCheck } from "../chess_game/moveFunction/kingsSafety.js";
-import { findKing } from "./layout.js";
+import { findKing, isStalemate } from "./layout.js";
 import { isItCheckMate } from "../chess_game/checkMateChecker.js";
 
-function minimaxAlphaBeta(board, depth, alpha, beta, maximizingPlayer) {
+function minimaxAlphaBeta(board, depth, alpha, beta, maximizingPlayer,bestMove) {
     console.log(depth);
-    console.log(isTerminal(board)[0]);
-  if (depth === 0 || isTerminal(board)[0]) {
+    console.log(bestMove);
+    const {terminal, reason}=isTerminal(board);
+  if (terminal) {
+    alert(reason);
+  }
+  if (depth === 0) {
     const evaluation = evaluateBoard(board);
-    return { move: null, evaluation }; 
+    console.log(bestMove);
+    return { bestMove, evaluation }; 
   }
 
   if (maximizingPlayer) {
     let maxEval = -Infinity;
-    let bestMove = null;
     const moves = getAllComputersMoves(board);
     console.log(moves,"max e");
 
     for (const move of moves) {
       const newBoard = makeMove(board, move);
-      const { evaluation } = minimaxAlphaBeta(newBoard, depth - 1, alpha, beta, false);
+      const { evaluation } = minimaxAlphaBeta(newBoard, depth - 1, alpha, beta, false,bestMove);
       if (evaluation > maxEval) {
         maxEval = evaluation;
         bestMove = move;
       }
+      console.log(alpha, "nnnn", maxEval);
       alpha = Math.max(alpha, maxEval);
       if (beta <= alpha) break;
     }
-    return { move: bestMove, evaluation: maxEval };
+    return { bestMove, evaluation: maxEval };
   } else {
     let minEval = Infinity;
-    let bestMove = null;
     const moves = getAllPlayerMoves(board);
     for (const move of moves) {
       const newBoard = makeMove(board, move);
-      const { evaluation } = minimaxAlphaBeta(newBoard, depth - 1, alpha, beta, true);
+      const { evaluation } = minimaxAlphaBeta(newBoard, depth - 1, alpha, beta, true,bestMove);
       if (evaluation < minEval) {
         minEval = evaluation;
         bestMove = move;
@@ -43,7 +46,7 @@ function minimaxAlphaBeta(board, depth, alpha, beta, maximizingPlayer) {
       beta = Math.min(beta, minEval);
       if (beta <= alpha) break;
     }
-    return { move: bestMove, evaluation: minEval };
+    return { bestMove, evaluation: minEval };
   }
 }
 
@@ -66,21 +69,15 @@ function isTerminal(board) {
     const blackKingCaptured = isItCheckMate(board, bking);
   
     if (whiteKingCaptured[0] || blackKingCaptured[0]) {
-      return true; 
-    }
-  
-    if (isDraw(board, wking, bking)) {
-      return true; 
-    }
-  
-    return false;
+        return { terminal: true, reason: "King Captured" };
+      }
+      const king=findKing(board,"white");
+      if (isStalemate(board, king, "black")) {
+        return { terminal: true, reason: "Stalemate" };
+      }
+    
+      return { terminal: false, reason: "" };
   }
 
-function isDraw(board, wking, bking) {
-  if (getAllComputersMoves(board)==null && getAllPlayerMoves(board)==null && !isItCheck(wking) && !isItCheck(bking)) {
-    return true;
-  }
-  return false;
-}
 
 export { minimaxAlphaBeta };

@@ -2,11 +2,13 @@ import { minimaxAlphaBeta } from "./AIPlayer.js";
 
 const depth= 3;
 function makeAIMove(board, currentPlayer) {
-    const {bestMove, evaluation} = minimaxAlphaBeta(board, depth, -Infinity, Infinity, true);
+    const move= null;
+    const {bestMove, evaluation} = minimaxAlphaBeta(board, depth, -Infinity, Infinity, true, move);
     console.log(evaluation);
     console.log(bestMove);
     if (bestMove) {
-      const sourcePosition = bestMove.source;
+      const sourcePosition = bestMove.currentPosition;
+      console.log(sourcePosition);
       const targetPosition = bestMove.nextPosition;
   
       const sourceSquare = document.getElementById(
@@ -27,6 +29,7 @@ function makeAIMove(board, currentPlayer) {
         currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
       }
     }
+    console.log(board, currentPlayer);
     return { board, currentPlayer };
   }
 

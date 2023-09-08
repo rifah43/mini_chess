@@ -1,5 +1,6 @@
 import { findKing } from "./layout.js";
-import {isItCheck} from "../chess_game/moveFunction/kingsSafety.js";
+import { isItCheck } from "../chess_game/moveFunction/kingsSafety.js";
+
 const pieceValues = {
   'pa': 1,
   'kn': 3,
@@ -15,37 +16,41 @@ function evaluateBoard(board) {
   for (let row = 0; row < 6; row++) {
     for (let col = 0; col < 5; col++) {
       const square = board[row][col];
-      console.log(square);
-
+      // Skip empty squares
       if (square === null) continue;
 
       const [type, piece] = square.split('_');
       const pieceValue = pieceValues[piece];
 
-      if (type === 'p') {
-        totalEvaluation += pieceValue;
-      } else {
-        totalEvaluation -= pieceValue;
+      // Ensure that type and piece are valid
+      if (type && pieceValue !== undefined) {
+        if (type === 'p') {
+          totalEvaluation += pieceValue;
+        } else {
+          totalEvaluation -= pieceValue;
+        }
       }
     }
   }
-  const c_king= findKing(board, "white");
-  const b_king= findKing(board, "black");
-  console.log(c_king);
-  console.log(b_king);
-  console.log(isItCheck(board,b_king));
-  if (isItCheck(board,b_king)[0]) {
-    console.log("bking");
+
+  const c_king = findKing(board, "white");
+  const b_king = findKing(board, "black");
+
+  // Check if isItCheck(board, b_king) and isItCheck(board, c_king) return valid arrays
+  const isCheckBKing = Array.isArray(isItCheck(board, b_king)) && isItCheck(board, b_king)[0];
+  const isCheckCKing = Array.isArray(isItCheck(board, c_king)) && isItCheck(board, c_king)[0];
+
+  // Update totalEvaluation based on checks
+  if (isCheckBKing) {
     totalEvaluation += 2;
-    console.log(totalEvaluation);
   }
 
-  if (isItCheck(board,c_king)[0]) {
+  if (isCheckCKing) {
     totalEvaluation -= 2;
   }
 
-  console.log(totalEvaluation,"----");
-  return -totalEvaluation;
+  console.log(totalEvaluation, "----");
+  return parseInt(-totalEvaluation);
 }
 
 export { evaluateBoard };

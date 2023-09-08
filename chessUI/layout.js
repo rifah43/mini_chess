@@ -1,4 +1,4 @@
-import {constant} from '../chess_game/chess_game.js';
+import {constant, getAllComputersMoves, getAllPlayerMoves} from '../chess_game/chess_game.js';
 const pieceInfo = [];
 function generatePieceInfo(board){
 
@@ -40,7 +40,6 @@ for (let row = 0; row < board.length; row++) {
 }
 }
 function findKing(board, cp) {
-  console.log(cp);
   let p = null;
   if (cp == "white") {
     p = "p";
@@ -58,6 +57,20 @@ function findKing(board, cp) {
   return null;
 }
 
-export { pieceInfo, generatePieceInfo, findKing };
+function isStalemate(board, king,currentPlayer) {
+  if(currentPlayer==="white"){
+    if (getAllPlayerMoves(board)==null && !isItCheck(king)) {
+      return true;
+    }
+  }
+  else{
+    if (getAllComputersMoves(board)==null && !isItCheck(king)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export { pieceInfo, generatePieceInfo, findKing, isStalemate };
 
   //quick chess layout

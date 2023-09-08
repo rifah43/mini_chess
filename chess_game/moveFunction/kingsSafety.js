@@ -194,7 +194,7 @@ function isItCheck(board, kingName) {
         }
     }
     else {
-        console.log("Invalide king's type!!! it should be (constant.COMPUTER_KING/PLAYER_KING)");
+        console.log("Invalid king's type!!! it should be (constant.COMPUTER_KING/PLAYER_KING)");
         return null;
     }
 

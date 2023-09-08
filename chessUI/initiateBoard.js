@@ -43,10 +43,10 @@ function boardGeneration(white, gameboard, bb) {
 }
 
 function handlePieceClick(e) {
-  evaluation += parseInt(evaluateBoard(board));
+  evaluation += evaluateBoard(board);
   console.log(`Board evaluation: ${evaluation}`);
   const king= findKing(board, currentPlayer);
-    console.log(isItCheck(board,king)[0]);
+    // console.log(isItCheck(board,king)[0]);
     if(isItCheck(board,king)[0])
     {
       alert(`${currentPlayer} king is on check!`);
@@ -66,7 +66,7 @@ function handleSquareClick(e) {
   if (selectedPiece) {
     const sourceSquare = selectedPiece.parentElement;
     const nums = sourceSquare.id.split(",");
-    console.log(nums);
+    // console.log(nums);
 
     let possibleMoves = [];
     possibleMoves = getAllMovesForA_Position(board, parseInt(nums[0]), parseInt(nums[1]));
@@ -74,7 +74,7 @@ function handleSquareClick(e) {
       alert("This piece has no possible moves!")
     }
     for (const move of possibleMoves) {
-      console.log(move);
+      // console.log(move);
       const targetSquare = document.getElementById(
         `${move.nextPosition.y},${move.nextPosition.x}`
       );
@@ -113,13 +113,12 @@ selectedPiece = null;
   clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   if(currentPlayer=== "black"){
-    const { newBoard, newCurrentPlayer } = makeAIMove(board, currentPlayer);
-  board = newBoard;
-  currentPlayer = newCurrentPlayer;
+     console.log(makeAIMove(board, currentPlayer));
+     ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
   }
-  console.log("computer moves:", getAllComputersMoves(board));
-  console.log(currentPlayer);
-  console.log(board);
+  // console.log("computer moves:", getAllComputersMoves(board));
+  // console.log(currentPlayer);
+  // console.log(board);
 }
 
 function clearValidMoveSquares() {
