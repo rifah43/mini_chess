@@ -1,4 +1,4 @@
-import { boardGeneration } from "./initiateBoard.js";
+import { initializeBoard, letMove } from "./initiateBoard.js";
 
 const gameboard = document.querySelector(".board");
 const numbers = document.querySelector(".numbers");
@@ -20,6 +20,7 @@ let letter = "ABCDEFGH";
 // // Testing End
 
 const board = initialize();
+console.log(board,"scr");
 
 boardGenerationAndPopulate(white);
 
@@ -31,7 +32,7 @@ function restartGame() {
 }
 
 function boardGenerationAndPopulate(white) {
-    boardGeneration(white, gameboard,board);
+    initializeBoard(white, gameboard,board);
     
     for (let index = 1; index <= 6; index++) {
         createAndAppendListItem(numbers, index);
@@ -49,3 +50,5 @@ function createAndAppendListItem(container, text) {
     listItem.textContent = text;
     container.appendChild(listItem);
 }
+
+letMove();

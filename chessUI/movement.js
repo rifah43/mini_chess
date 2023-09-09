@@ -5,6 +5,7 @@ const depth= 3;
 let validMoves=null;
 let board= null;
 function makeAIMove(main_board, currentPlayer) {
+  console.log(main_board,"main");
   board=main_board;
     validMoves= getAllComputersMoves(board);
     let bestMove=null;
@@ -52,7 +53,7 @@ function makeAIMove(main_board, currentPlayer) {
     let nextMove = null;
     let evaluation = null;
     validMoves = shuffle(validMoves);
-    console.log(validMoves, "-----start");
+    console.log(board, "-----start");
     ({ nextMove, evaluation } = minimaxAlphaBeta(board, validMoves, depth, -Infinity, Infinity, true));
     return nextMove;
   }

@@ -25,7 +25,7 @@ function initialize() {
         //     [null, null, null, null, constant.COMPUTER_ROOK],
         //     [constant.PLAYER_ROOK, null, null, null, constant.COMPUTER_KING]
         // ];
-
+        console.log(board,"board");
         return board;
     } catch (error) {
         console.log(error);
