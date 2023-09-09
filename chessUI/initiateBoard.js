@@ -116,19 +116,22 @@ function handleValidSquareClick(e) {
   const targetRow = parseInt(targetPos[0]);
   const targetCol = parseInt(targetPos[1]);
 
-  if(board[sourceRow][sourceCol]){
-    board[targetRow][targetCol] = board[sourceRow][sourceCol];
-  }
+  board[targetRow][targetCol] = board[sourceRow][sourceCol];
   board[sourceRow][sourceCol] = null;
 
   targetSquare.appendChild(selectedPiece);
   selectedPiece = null;
   clearValidMoveSquares();
-  currentPlayer = currentPlayer === "white" ? "black" : "white";
-  if(isItCheckMate(board) || isStalemate(board)){
-    alert("Game Over! ");
+  console.log(board);
+  if(isItCheckMate(board) ){
+    alert("Game Over! Checkmate by "+currentPlayer);
     return;
   }
+  if(isStalemate(board)){
+    alert("Game Over! No more moves");
+    return;
+  }
+  currentPlayer = currentPlayer === "white" ? "black" : "white";
   if (currentPlayer === "black") {
     ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
   }

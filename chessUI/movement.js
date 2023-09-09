@@ -8,6 +8,7 @@ function makeAIMove(board, currentPlayer) {
   validMoves= getAllComputersMoves(board);
   
   if(!validMoves || validMoves.length === 0){
+    alert("Game Over! ");
     return {board, currentPlayer};
   }
   let bestMove=null;
