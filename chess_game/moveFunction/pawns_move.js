@@ -35,7 +35,9 @@ function move(board, positionY, positionX) {
             if(positionY=== constant.BOARD_LENGTH-1){
                 //choose pawn to queen or bishop or rook or knight
                 console.log("Choose pawn to queen or bishop or rook or knight");
-
+                board[positionY][positionX] = constant.COMPUTER_QUEEN;
+                console.log(board);
+                
             }
             
             if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
@@ -73,7 +75,9 @@ function move(board, positionY, positionX) {
                 //choose pawn to queen or bishop or rook or knight
                 console.log("Choose pawn to queen or bishop or rook or knight");
                 board[positionY][positionX] = constant.PLAYER_QUEEN;
-                console.log(board);
+                console.log(board); 
+                const piece = document.getElementById("white_queen");
+                
             }
 
             else if (board[positionY - 1][positionX] == null) {

@@ -1,4 +1,4 @@
-import {constant, getAllComputersMoves, getAllPlayerMoves} from '../chess_game/chess_game.js';
+import {constant, getAllComputersMoves, getAllPlayerMoves, isItCheck} from '../chess_game/chess_game.js';
 const pieceInfo = [];
 function generatePieceInfo(board){
 
