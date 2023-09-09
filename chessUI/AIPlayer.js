@@ -66,7 +66,7 @@ function makeMove(move,board) {
  if(!temp){
   return board;
   }
- let temp1 = temp.slice().map(row => row.slice());
+ let temp1 = temp.slice().map(row => row.slice())
   const {currentPosition, nextPosition} = move;
   // console.log(currentPosition, nextPosition,"currentPosition, nextPosition");
   temp1[nextPosition.y][nextPosition.x] = temp1[currentPosition.y][currentPosition.x];

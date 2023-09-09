@@ -13,6 +13,7 @@ function makeAIMove(board, currentPlayer) {
   let bestMove=null;
   bestMove=findBestMove(board,validMoves);
 
+
   if(bestMove){
     const sourcePosition= bestMove.currentPosition;
     const targetPosition= bestMove.nextPosition;

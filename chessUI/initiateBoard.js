@@ -41,35 +41,22 @@ function initializeGameboard(white, gameboard) {
   }
 }
 
-function letMove(currentPlayer) {
+function letMove() {
   const pieces = document.querySelectorAll(".piece");
   const squares = document.querySelectorAll(".square");
 
   pieces.forEach((piece) => {
-    piece.removeEventListener("click", handlePieceClick); // Remove previous event listeners
+    piece.addEventListener("click", handlePieceClick);
   });
 
   squares.forEach((square) => {
-    square.removeEventListener("click", handleSquareClick); // Remove previous event listeners
+    square.addEventListener("click", handleSquareClick);
   });
-
-  // if (currentPlayer === "white") {
-    pieces.forEach((piece) => {
-      piece.addEventListener("click", handlePieceClick);
-    });
-
-    squares.forEach((square) => {
-      square.addEventListener("click", handleSquareClick);
-    });
-    console.log(board, " wmove");
-  // } else {
-  //   ({ board, currentPlayer } = makeAIMove(board, currentPlayer));
-  //   letMove(currentPlayer);
-  // }
 }
 
 function handlePieceClick(e) {
   evaluation += evaluateBoard(board);
+ // console.log(`Board evaluation: ${evaluation}`);
   const king = findKing(board, currentPlayer);
   if (isItCheck(board, king)[0]) {
     alert(`${currentPlayer} king is on check!`);
@@ -95,7 +82,6 @@ function handleSquareClick(e) {
       alert("This piece has no possible moves!")
       return;
     }
-    console.log(possibleMoves);
     for (const move of possibleMoves) {
       const targetSquare = document.getElementById(
         `${move.nextPosition.y},${move.nextPosition.x}`
@@ -124,16 +110,17 @@ function handleValidSquareClick(e) {
   const sourceCol = parseInt(sourcePos[1]);
   const targetRow = parseInt(targetPos[0]);
   const targetCol = parseInt(targetPos[1]);
-  console.log(board, "b swapped");
+
   board[targetRow][targetCol] = board[sourceRow][sourceCol];
   board[sourceRow][sourceCol] = null;
-  console.log(board, " swapped");
 
   targetSquare.appendChild(selectedPiece);
   selectedPiece = null;
   clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
-  letMove(currentPlayer);
+  if (currentPlayer === "black") {
+    ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
+  }
 }
 
 function clearValidMoveSquares() {
