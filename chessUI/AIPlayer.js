@@ -1,12 +1,13 @@
 import { evaluateBoard } from "./evaluation.js";
 import { getAllComputersMoves, getAllPlayerMoves } from "../chess_game/chess_game.js";
-// import { findKing, isStalemate } from "./layout.js";
-// import { isItCheckMate } from "../chess_game/checkMateChecker.js";
+//  import { findKing, isStalemate } from "./layout.js";
+//  import { isItCheckMate } from "../chess_game/checkMateChecker.js";
 
 let temp=null;
 
 function minimaxAlphaBeta(board, depth, alpha, beta, isMaximizing) {
-  if (depth === 0) {
+
+  if (depth === 0 ) {
     return { evaluation: evaluateBoard(board) };
   }
 

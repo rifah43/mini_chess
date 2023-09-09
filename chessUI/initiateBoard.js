@@ -1,9 +1,10 @@
 import { setPieceIcon } from "./placeIcons.js";
-import { pieceInfo, generatePieceInfo, findKing } from "./layout.js";
+import { pieceInfo, generatePieceInfo, findKing, isStalemate } from "./layout.js";
 import { getAllMovesForA_Position, getAllComputersMoves } from "../chess_game/chess_game.js";
 import { isItCheck } from "../chess_game/moveFunction/kingsSafety.js";
 import { evaluateBoard } from "./evaluation.js";
 import { makeAIMove } from "./movement.js";
+import { isItCheckMate } from "../chess_game/checkMateChecker.js";
 
 let selectedPiece = null;
 let currentPlayer = "white";
@@ -42,6 +43,10 @@ function initializeGameboard(white, gameboard) {
 }
 
 function letMove() {
+  if(isItCheckMate(board) || isStalemate(board)){
+    alert("Game Over! ");
+    return;
+  }
   const pieces = document.querySelectorAll(".piece");
   const squares = document.querySelectorAll(".square");
 
@@ -111,13 +116,19 @@ function handleValidSquareClick(e) {
   const targetRow = parseInt(targetPos[0]);
   const targetCol = parseInt(targetPos[1]);
 
-  board[targetRow][targetCol] = board[sourceRow][sourceCol];
+  if(board[sourceRow][sourceCol]){
+    board[targetRow][targetCol] = board[sourceRow][sourceCol];
+  }
   board[sourceRow][sourceCol] = null;
 
   targetSquare.appendChild(selectedPiece);
   selectedPiece = null;
   clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
+  if(isItCheckMate(board) || isStalemate(board)){
+    alert("Game Over! ");
+    return;
+  }
   if (currentPlayer === "black") {
     ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
   }

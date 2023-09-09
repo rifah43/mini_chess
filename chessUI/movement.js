@@ -37,7 +37,7 @@ function makeAIMove(board, currentPlayer) {
     }
   }
 
-    console.log(board, currentPlayer);
+    // console.log(board, currentPlayer);
     return { board, currentPlayer };
   }
 

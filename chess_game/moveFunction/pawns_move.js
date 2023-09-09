@@ -32,6 +32,12 @@ function move(board, positionY, positionX) {
             // }
             // Checking forword move
             // console.log("Hello", positionY+1,  positionX);
+            if(positionY=== constant.BOARD_LENGTH-1){
+                //choose pawn to queen or bishop or rook or knight
+                console.log("Choose pawn to queen or bishop or rook or knight");
+
+            }
+            
             if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
                 // console.log("Hello2");
                 if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX)) {
@@ -63,7 +69,14 @@ function move(board, positionY, positionX) {
             // }
 
             // Checking forword move
-            if (board[positionY - 1][positionX] == null) {
+            if(positionY=== 0){
+                //choose pawn to queen or bishop or rook or knight
+                console.log("Choose pawn to queen or bishop or rook or knight");
+                board[positionY][positionX] = constant.PLAYER_QUEEN;
+                console.log(board);
+            }
+
+            else if (board[positionY - 1][positionX] == null) {
                 if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY - 1, positionX)) {
                     totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY - 1, x: positionX } });
                 }
