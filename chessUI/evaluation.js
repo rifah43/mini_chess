@@ -36,11 +36,9 @@ function evaluateBoard(board) {
   const c_king = findKing(board, "white");
   const b_king = findKing(board, "black");
 
-  // Check if isItCheck(board, b_king) and isItCheck(board, c_king) return valid arrays
   const isCheckBKing = Array.isArray(isItCheck(board, b_king)) && isItCheck(board, b_king)[0];
   const isCheckCKing = Array.isArray(isItCheck(board, c_king)) && isItCheck(board, c_king)[0];
 
-  // Update totalEvaluation based on checks
   if (isCheckBKing) {
     totalEvaluation += 2;
   }
@@ -49,7 +47,7 @@ function evaluateBoard(board) {
     totalEvaluation -= 2;
   }
 
-  console.log(totalEvaluation, "----");
+  // console.log(totalEvaluation, "----");
   return parseInt(-totalEvaluation);
 }
 

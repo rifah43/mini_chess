@@ -89,7 +89,7 @@ function handleSquareClick(e) {
 
 function handleValidSquareClick(e) {
   const targetSquare = e.target;
-  targetSquare.textContent = ""
+  targetSquare.textContent = null;
   if (targetSquare.classList.contains("black")) {
     targetSquare.style.backgroundColor = "rgb(202, 33, 33)";
   } else {
@@ -113,8 +113,9 @@ selectedPiece = null;
   clearValidMoveSquares();
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   if(currentPlayer=== "black"){
-     console.log(makeAIMove(board, currentPlayer));
-     ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
+    console.log("hi");
+    console.log(board);
+    ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
   }
   // console.log("computer moves:", getAllComputersMoves(board));
   // console.log(currentPlayer);

@@ -5,6 +5,8 @@
 // import { move as queens_move } from "../moveFunction/queens_move.js";
 // import { move as kings_move } from "../moveFunction/kings_move.js";
 
+import { getAllComputersMoves, getAllPlayerMoves } from "../chess_game/chess_game";
+
 // It must be updated by "chess_game.getAllComputersMoves()" or "chess_game.isItCheck()" or "chess_game.isItCheckMate"
 
 
