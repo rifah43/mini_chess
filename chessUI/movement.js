@@ -5,15 +5,15 @@ const depth= 3;
 let validMoves=null;
 let board= null;
 function makeAIMove(main_board, currentPlayer) {
-  console.log(main_board,"main");
+  console.log(main_board);
   board=main_board;
     validMoves= getAllComputersMoves(board);
     let bestMove=null;
     bestMove=findBestMove(validMoves);
     // const {bestMove, evaluation} = minimaxAlphaBeta(board, depth, -Infinity, Infinity, true);
-    console.log(bestMove);
+    // console.log(bestMove);
     if (bestMove) {
-      console.log(move);
+      // console.log(move);
       move++;
       const sourcePosition = bestMove.currentPosition;
       // console.log(sourcePosition);

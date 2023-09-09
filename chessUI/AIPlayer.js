@@ -23,7 +23,7 @@ function minimaxAlphaBeta(board, validMoves, depth, alpha, beta, isMaximizingPla
     else{
         nextMoves= getAllComputersMoves(board);
     }
-    console.log(nextMove,"new move----");
+    // console.log(nextMove,"new move----");
     const score = minimaxAlphaBeta(newBoard, nextMoves, depth - 1, beta, alpha, isMaximizingPlayer);
     // console.log(score, nextMoves);
     if (score > evaluation) {
@@ -47,18 +47,18 @@ function minimaxAlphaBeta(board, validMoves, depth, alpha, beta, isMaximizingPla
 function makeMove(move,board) {
     const { currentPosition, nextPosition } = move;
     const pieceToMove = board[currentPosition.y][currentPosition.x];
-    console.log(board,"bbb");
+    // console.log(board,"bbb");
     let newBoard= board;
     temp=board;
     newBoard[currentPosition.y][currentPosition.x] = null;
     newBoard[nextPosition.y][nextPosition.x] = pieceToMove;
-    console.log(newBoard,"new board----",nextPosition.y, nextPosition.x);
+    // console.log(newBoard,"new board----",nextPosition.y, nextPosition.x);
     return newBoard;
 }
 
 function undo(newBoard) {
   newBoard=temp;
-  console.log(newBoard,"undo board----");
+  // console.log(newBoard,"undo board----");
   return newBoard;
 }
 

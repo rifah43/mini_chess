@@ -51,4 +51,4 @@ function createAndAppendListItem(container, text) {
     container.appendChild(listItem);
 }
 
-letMove();
+letMove("white");
