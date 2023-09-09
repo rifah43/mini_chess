@@ -25,7 +25,6 @@ function initialize() {
         //     [null, null, null, null, constant.COMPUTER_ROOK],
         //     [constant.PLAYER_ROOK, null, null, null, constant.COMPUTER_KING]
         // ];
-        console.log(board,"board");
         return board;
     } catch (error) {
         console.log(error);
@@ -66,8 +65,8 @@ function printAllMoves(board, allMovesArray) {
 
         let numberOfMoves = 0;
         allMovesArray.forEach(move => {
-            console.log("Move No= ", ++numberOfMoves);
-            console.log(move);
+            // console.log("Move No= ", ++numberOfMoves);
+            // console.log(move);
 
             const temp = board.map(row => [...row]);
 

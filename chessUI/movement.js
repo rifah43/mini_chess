@@ -4,40 +4,39 @@ import { minimaxAlphaBeta } from "./AIPlayer.js";
 const depth= 3;
 let validMoves=null;
 let board= null;
-function makeAIMove(main_board, currentPlayer) {
-  console.log(main_board,"main");
-  board=main_board;
-    validMoves= getAllComputersMoves(board);
-    let bestMove=null;
-    bestMove=findBestMove(validMoves);
-    // const {bestMove, evaluation} = minimaxAlphaBeta(board, depth, -Infinity, Infinity, true);
-    console.log(bestMove);
-    if (bestMove) {
-      console.log(move);
-      move++;
-      const sourcePosition = bestMove.currentPosition;
-      // console.log(sourcePosition);
-      const targetPosition = bestMove.nextPosition;
+function makeAIMove(board, currentPlayer) {
+  validMoves= getAllComputersMoves(board);
   
-      const sourceSquare = document.getElementById(
-        `${sourcePosition.y},${sourcePosition.x}`
-      );
-      const targetSquare = document.getElementById(
-        `${targetPosition.y},${targetPosition.x}`
-      );
+  if(!validMoves || validMoves.length === 0){
+    return {board, currentPlayer};
+  }
+  let bestMove=null;
+  bestMove=findBestMove(board,validMoves);
 
-      const piece = board[sourcePosition.y][sourcePosition.x];
-      board[targetPosition.y][targetPosition.x] = piece;
-      board[sourcePosition.y][sourcePosition.x] = null;
+  if(bestMove){
+    const sourcePosition= bestMove.currentPosition;
+    const targetPosition= bestMove.nextPosition;
 
-      if (sourceSquare && targetSquare) {
-        targetSquare.innerHTML = sourceSquare.innerHTML;
-        sourceSquare.innerHTML = '';
-  
-        currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
-      }
+    const sourceSquare = document.getElementById(
+      `${sourcePosition.y},${sourcePosition.x}`
+    );
+    const targetSquare = document.getElementById(
+      `${targetPosition.y},${targetPosition.x}`
+    );
+
+    const piece = board[sourcePosition.y][sourcePosition.x];
+    board[targetPosition.y][targetPosition.x] = piece;
+    board[sourcePosition.y][sourcePosition.x] = null;
+
+    if (sourceSquare && targetSquare) {
+      targetSquare.innerHTML = sourceSquare.innerHTML;
+      sourceSquare.innerHTML = '';
+
+      currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
     }
-    // console.log(board, currentPlayer);
+  }
+
+    console.log(board, currentPlayer);
     return { board, currentPlayer };
   }
 
@@ -49,12 +48,20 @@ function makeAIMove(main_board, currentPlayer) {
     return array;
   }
   
-  function findBestMove(validMoves) {
-    let nextMove = null;
-    let evaluation = null;
+  function findBestMove(board, validMoves) {
     validMoves = shuffle(validMoves);
-    console.log(board, "-----start");
-    ({ nextMove, evaluation } = minimaxAlphaBeta(board, validMoves, depth, -Infinity, Infinity, true));
+    let nextMove = null;
+    let bestEvaluation = -Infinity;
+    let tempBoard = board;
+    for (let i = 0; i < validMoves.length; i++) {
+      const move = validMoves[i];
+      const { evaluation } = minimaxAlphaBeta(tempBoard, depth, -Infinity, Infinity, true);
+      if (evaluation > bestEvaluation) {
+        bestEvaluation = evaluation;
+        nextMove = move;
+      }
+    }
+
     return nextMove;
   }
   

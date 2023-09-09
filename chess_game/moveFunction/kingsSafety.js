@@ -314,7 +314,7 @@ function isItCheckBy_Vertical_Horizontal(board, kingsPosition, attackedBy, check
     }
     // checking right side
     for (let i = x + 1; i < constant.BOARD_WIDTH; i++) {
-        console.log(board[y][i]);
+       // console.log(board[y][i]);
         if (board[y][i] == null) continue;
         if (board[y][i] == rook || board[y][i] == queen) {
             isItCheck = true;

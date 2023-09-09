@@ -5,60 +5,79 @@ import { getAllComputersMoves, getAllPlayerMoves } from "../chess_game/chess_gam
 
 let temp=null;
 
-function minimaxAlphaBeta(board, validMoves, depth, alpha, beta, isMaximizingPlayer){
-  let nextMove = null;
-  let newBoard= board;
+function minimaxAlphaBeta(board, depth, alpha, beta, isMaximizing) {
   if (depth === 0) {
-    const evaluation = evaluateBoard(board);
-    return { bestMove: null, evaluation };
+    return { evaluation: evaluateBoard(board) };
   }
-  let evaluation = -Infinity;
-  // console.log(validMoves);
-  for (const move of validMoves) {
-    newBoard= makeMove(move,newBoard);
-    let nextMoves = null;
-    if(isMaximizingPlayer){
-        nextMoves= getAllPlayerMoves(board);
-    }
-    else{
-        nextMoves= getAllComputersMoves(board);
-    }
-    console.log(nextMove,"new move----");
-    const score = minimaxAlphaBeta(newBoard, nextMoves, depth - 1, beta, alpha, isMaximizingPlayer);
-    // console.log(score, nextMoves);
-    if (score > evaluation) {
-      evaluation = score;
-      if (depth === 3) {
-        nextMove = move;
-        console.log(nextMove);
+
+  let validMoves = null;
+  if (isMaximizing) {
+    validMoves = getAllComputersMoves(board);
+  } else {
+    validMoves = getAllPlayerMoves(board);
+  }
+
+  if (!validMoves || validMoves.length === 0) {
+    return { evaluation: evaluateBoard(board) };
+  }
+
+  let bestMove = null;
+  let bestEvaluation = isMaximizing ? -Infinity : Infinity;
+
+  shuffle(validMoves).forEach((move) => {
+    const newBoard = makeMove(move, board);
+    const { evaluation } = minimaxAlphaBeta(newBoard, depth - 1, alpha, beta, !isMaximizing);
+
+    if (isMaximizing) {
+      if (evaluation > bestEvaluation) {
+        bestEvaluation = evaluation;
+        bestMove = move;
       }
+      alpha = Math.max(alpha, evaluation);
+    } else {
+      if (evaluation < bestEvaluation) {
+        bestEvaluation = evaluation;
+        bestMove = move;
+      }
+      beta = Math.min(beta, evaluation);
     }
-    newBoard= undo(newBoard);
-    if (evaluation > alpha) {
-      alpha = evaluation;
-    }
+
     if (alpha >= beta) {
-      break;
+      return;
     }
-  }
-  return {nextMove,evaluation};
+
+  });
+
+  return { evaluation: bestEvaluation };
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+
+
 function makeMove(move,board) {
-    const { currentPosition, nextPosition } = move;
-    const pieceToMove = board[currentPosition.y][currentPosition.x];
-    console.log(board,"bbb");
-    let newBoard= board;
-    temp=board;
-    newBoard[currentPosition.y][currentPosition.x] = null;
-    newBoard[nextPosition.y][nextPosition.x] = pieceToMove;
-    console.log(newBoard,"new board----",nextPosition.y, nextPosition.x);
-    return newBoard;
+ let temp = board;
+ if(!temp){
+  return board;
+  }
+ let temp1 = temp.slice().map(row => row.slice());
+  const {currentPosition, nextPosition} = move;
+  // console.log(currentPosition, nextPosition,"currentPosition, nextPosition");
+  temp1[nextPosition.y][nextPosition.x] = temp1[currentPosition.y][currentPosition.x];
+  temp1[currentPosition.y][currentPosition.x] = null;
+  
+  return temp1;
 }
 
 function undo(newBoard) {
   newBoard=temp;
-  console.log(newBoard,"undo board----");
+  // console.log(newBoard,"undo board----");
   return newBoard;
 }
 

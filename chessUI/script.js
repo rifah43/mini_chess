@@ -20,7 +20,7 @@ let letter = "ABCDEFGH";
 // // Testing End
 
 const board = initialize();
-console.log(board,"scr");
+
 
 boardGenerationAndPopulate(white);
 

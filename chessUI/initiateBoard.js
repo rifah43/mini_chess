@@ -12,7 +12,6 @@ let evaluation = parseInt(0);
 
 function initializeBoard(white, gameboard, bb) {
   board = bb;
-  console.log(bb, "sssss");
   initializeGameboard(white, gameboard);
 }
 
@@ -79,8 +78,9 @@ function handleSquareClick(e) {
     const nums = sourceSquare.id.split(",");
     let possibleMoves = [];
     possibleMoves = getAllMovesForA_Position(board, parseInt(nums[0]), parseInt(nums[1]));
-    if (!possibleMoves) {
+    if (!possibleMoves || possibleMoves.length === 0) {
       alert("This piece has no possible moves!")
+      return;
     }
     for (const move of possibleMoves) {
       const targetSquare = document.getElementById(
@@ -140,6 +140,11 @@ function highlightValidMoveSquares(piece) {
   const sourceSquare = piece.parentElement;
   const nums = sourceSquare.id.split(",");
   let possibleMoves = getAllMovesForA_Position(board, parseInt(nums[0]), parseInt(nums[1]));
+
+  if (!possibleMoves || possibleMoves.length === 0) {
+    alert("This piece has no possible moves!")
+    return;
+  }
 
   for (const move of possibleMoves) {
     const targetSquare = document.getElementById(
