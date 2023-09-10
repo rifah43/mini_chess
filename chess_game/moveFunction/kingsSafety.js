@@ -4,11 +4,9 @@ import * as constant from '../constant.js';
 import * as check_pieces from './check_pieces.js';
 
 function findKingsPosition(board, king) {
-    let x, y;
-    for (y = 0; y < constant.BOARD_LENGTH; y++) {
-        for (x = 0; x < constant.BOARD_WIDTH; x++) {
-            if(board[y][x] == null) continue;
-            if (board[y][x] === king) return [parseInt(y), parseInt(x)];
+    for (let y = 0; y < constant.BOARD_LENGTH; y++) {
+        for (let x = 0; x < constant.BOARD_WIDTH; x++) {
+            if (board && board[y] && board[y][x] === king) return [parseInt(y), parseInt(x)];
         }
     }
     return [null, null];
