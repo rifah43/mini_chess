@@ -1,6 +1,6 @@
 import { getAIMove } from "../chess_game/AI/aiMove.js";
 import { getAllComputersMoves } from "../chess_game/chess_game.js";
-import { minimaxAlphaBeta } from "./AIPlayer.js";
+import { changePawnToQueen } from "./pawnChange.js";
 
 const depth= 3;
 let validMoves=null;
@@ -9,7 +9,7 @@ function makeAIMove(board, currentPlayer) {
   validMoves= getAllComputersMoves(board);
   
   if(!validMoves || validMoves.length === 0){
-    alert("Game Over! ");
+    alert("Game Over! PLayer wins!!");
     return {board, currentPlayer};
   }
   let bestMove=null;
@@ -35,11 +35,17 @@ function makeAIMove(board, currentPlayer) {
       targetSquare.innerHTML = sourceSquare.innerHTML;
       sourceSquare.innerHTML = '';
 
+      if(piece === 'c_pa' && targetPosition.y === 5){
+        changePawnToQueen(targetPosition.y, targetPosition.x, "computer");
+        board[targetPosition.y][targetPosition.x] = 'c_qu';
+      }
+
       currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
+
+
     }
   }
 
-    // console.log(board, currentPlayer);
     return { board, currentPlayer };
   }
 

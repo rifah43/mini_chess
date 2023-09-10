@@ -145,11 +145,11 @@ function getAllMovesForA_Position(board, positionY, positionX) {
     }
 
 
-    if(totalMoves.length == 0){
-        return null;
-    }
-    else if (kingsSafety.isItCheck(board, constant.PLAYER_KING)[0]) {
+    if (kingsSafety.isItCheck(board, constant.PLAYER_KING)[0]) {
         return checkRemoverMoves(board, constant.PLAYER_KING, totalMoves);
+    }
+    else if(totalMoves.length == 0){
+        return null;
     }
     else {
         return totalMoves;

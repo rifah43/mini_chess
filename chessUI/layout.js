@@ -57,6 +57,24 @@ function findKing(board, cp) {
   return null;
 }
 
+function findQueen(board, cp) {
+  let p = null;
+  if (cp == "white") {
+    p = "p";
+  } else {
+    p = "c";
+  }
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      const piece = board[row][col];
+      if (piece && piece.startsWith(p) && piece.endsWith("qu")) {
+        return [parseInt(row), parseInt(col)];
+      }
+    }
+  }
+  return null;
+}
+
 function isStalemate(board, king,currentPlayer) {
   if(currentPlayer==="white"){
     if (getAllPlayerMoves(board)==null && !isItCheck(king)) {
@@ -71,6 +89,6 @@ function isStalemate(board, king,currentPlayer) {
   return false;
 }
 
-export { pieceInfo, generatePieceInfo, findKing, isStalemate };
+export { pieceInfo, generatePieceInfo, findKing, isStalemate, findQueen };
 
   //quick chess layout

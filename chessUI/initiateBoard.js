@@ -1,12 +1,15 @@
 import { setPieceIcon } from "./placeIcons.js";
-import { pieceInfo, generatePieceInfo, findKing, isStalemate } from "./layout.js";
+import { pieceInfo, generatePieceInfo, findKing, findQueen, isStalemate } from "./layout.js";
 import { getAllMovesForA_Position, getAllComputersMoves } from "../chess_game/chess_game.js";
 import { isItCheck } from "../chess_game/moveFunction/kingsSafety.js";
 import { evaluateBoard } from "./evaluation.js";
 import { makeAIMove } from "./movement.js";
 import { isItCheckMate } from "../chess_game/checkMateChecker.js";
+import { changePawnToQueen } from "./pawnChange.js";
 
 let selectedPiece = null;
+let targetSquare = null;
+let t_square = null;
 let currentPlayer = "white";
 let board = null;
 let evaluation = parseInt(0);
@@ -33,7 +36,6 @@ function initializeGameboard(white, gameboard) {
         let piece = document.createElement("div");
         piece.classList.add("piece");
         piece.id = pieceId;
-
         setPieceIcon(piece, pieceId);
         square.appendChild(piece);
       }
@@ -43,15 +45,13 @@ function initializeGameboard(white, gameboard) {
 }
 
 function letMove() {
-  if(isItCheckMate(board) || isStalemate(board)){
-    alert("Game Over! ");
-    return;
-  }
   const pieces = document.querySelectorAll(".piece");
   const squares = document.querySelectorAll(".square");
 
   pieces.forEach((piece) => {
-    piece.addEventListener("click", handlePieceClick);
+    if (piece.id.startsWith("white")) {
+      piece.addEventListener("click", handlePieceClick);
+    }
   });
 
   squares.forEach((square) => {
@@ -61,7 +61,6 @@ function letMove() {
 
 function handlePieceClick(e) {
   evaluation += evaluateBoard(board);
- // console.log(`Board evaluation: ${evaluation}`);
   const king = findKing(board, currentPlayer);
   if (isItCheck(board, king)[0]) {
     alert(`${currentPlayer} king is on check!`);
@@ -71,14 +70,13 @@ function handlePieceClick(e) {
   if (pieceColor === currentPlayer) {
     selectedPiece = e.target;
     clearValidMoveSquares();
-    highlightValidMoveSquares(selectedPiece);
   } else {
     e.preventDefault();
   }
 }
 
 function handleSquareClick(e) {
-  if (selectedPiece) {
+  if (selectedPiece) { 
     const sourceSquare = selectedPiece.parentElement;
     const nums = sourceSquare.id.split(",");
     let possibleMoves = [];
@@ -88,7 +86,7 @@ function handleSquareClick(e) {
       return;
     }
     for (const move of possibleMoves) {
-      const targetSquare = document.getElementById(
+      targetSquare = document.getElementById(
         `${move.nextPosition.y},${move.nextPosition.x}`
       );
       if (targetSquare) {
@@ -101,8 +99,11 @@ function handleSquareClick(e) {
 }
 
 function handleValidSquareClick(e) {
-  const targetSquare = e.target;
-  targetSquare.textContent = null;
+  if(t_square===null){
+    targetSquare = e.target;
+    t_square = targetSquare;
+  }
+  targetSquare.textContent = "";
   if (targetSquare.classList.contains("black")) {
     targetSquare.style.backgroundColor = "rgb(202, 33, 33)";
   } else {
@@ -120,20 +121,30 @@ function handleValidSquareClick(e) {
   board[sourceRow][sourceCol] = null;
 
   targetSquare.appendChild(selectedPiece);
+  if(selectedPiece.id==="white_pawn" && targetRow===0){
+    changePawnToQueen(targetRow, targetCol, "player");
+    board[targetRow][targetCol] = "p_qu";
+  }
   selectedPiece = null;
+  targetSquare = null;
+  t_square = null;
   clearValidMoveSquares();
-  console.log(board);
   if(isItCheckMate(board) ){
     alert("Game Over! Checkmate by "+currentPlayer);
     return;
   }
-  if(isStalemate(board)){
-    alert("Game Over! No more moves");
-    return;
-  }
+  
   currentPlayer = currentPlayer === "white" ? "black" : "white";
   if (currentPlayer === "black") {
     ({ board, currentPlayer } = makeAIMove(board, currentPlayer));;
+    if(isItCheckMate(board) ){
+      alert("Game Over! Checkmate by "+currentPlayer);
+      return;
+    }
+    if(isStalemate(board)){
+      alert("Game Over! No more movesfor "+ !currentPlayer);;
+      return;
+    }
   }
 }
 
@@ -150,25 +161,13 @@ function clearValidMoveSquares() {
   });
 }
 
-function highlightValidMoveSquares(piece) {
-  const sourceSquare = piece.parentElement;
-  const nums = sourceSquare.id.split(",");
-  let possibleMoves = getAllMovesForA_Position(board, parseInt(nums[0]), parseInt(nums[1]));
 
-  if (!possibleMoves || possibleMoves.length === 0) {
-    alert("This piece has no possible moves!")
-    return;
-  }
-
-  for (const move of possibleMoves) {
-    const targetSquare = document.getElementById(
-      `${move.nextPosition.y},${move.nextPosition.x}`
-    );
-    if (targetSquare) {
-      targetSquare.classList.add("valid-drop-target");
-      targetSquare.addEventListener("click", handleValidSquareClick);
-    }
-  }
+function getBoard(){
+  return board;
 }
 
-export { initializeBoard, letMove };
+function setBoard(bb){
+  board = bb;
+}
+
+export { initializeBoard, letMove , getBoard, setBoard};

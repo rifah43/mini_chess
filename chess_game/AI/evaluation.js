@@ -3,6 +3,7 @@
 
 import * as constant from '../constant.js'
 import * as  check_pieces from '../moveFunction/check_pieces.js'
+import * as kingsSafety from '../moveFunction/kingsSafety.js'
 
 // Those are an other evalution position 
 // priority of killing

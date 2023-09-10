@@ -89,7 +89,7 @@
 // }
 
 
-const readline = require('readline');
+import readline from 'readline';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -141,6 +141,7 @@ function playGame() {
           nx = computerMove.nextPosition.x;
 
           if (board[cy][cx] === constant.COMPUTER_PAWN && ny === constant.BOARD_LENGTH - 1) {
+            
             board[ny][nx] = constant.COMPUTER_QUEEN;
           } else {
             board[ny][nx] = board[cy][cx];

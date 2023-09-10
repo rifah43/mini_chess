@@ -5,6 +5,7 @@
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
 import * as kingsSafety from './kingsSafety.js';
+import { changePawnToQueen } from '../../chessUI/pawnChange.js';
 
 
 function move(board, positionY, positionX) {
@@ -30,6 +31,10 @@ function move(board, positionY, positionX) {
             //         totalMoves.push({ currentPosition: { y: positionY, x: positionX }, nextPosition: { y: positionY + 2, x: positionX } });
             //     }
             // }
+            // If the pawn is in the last row then it will be replaced by selected pieces
+            if(positionY == constant.BOARD_LENGTH-1){
+                   board[positionY][positionX] = constant.COMPUTER_QUEEN;
+            }
             // Checking forword move
             if (positionY + 1 < constant.BOARD_LENGTH && board[positionY + 1][positionX] == null) {
                 if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY + 1, positionX)) {
@@ -60,6 +65,10 @@ function move(board, positionY, positionX) {
             //     }
             // }
 
+            // If the pawn is in the last row then it will be replaced by selected pieces
+            if(positionY == 0){
+                board[positionY][positionX] = constant.PLAYER_QUEEN;
+            }
             // Checking forword move
             if (board[positionY - 1][positionX] == null) {
                 if (kingsSafety.isThisMoveSafeForKing(board, positionY, positionX, positionY - 1, positionX)) {
