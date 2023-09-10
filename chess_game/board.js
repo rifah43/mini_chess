@@ -18,13 +18,14 @@ function initialize() {
 
         //for Demo checking
         // board = [
-        //     [constant.COMPUTER_ROOK, null, null, null, null],
         //     [null, null, null, null, null],
-        //     [constant.COMPUTER_ROOK, null, null, null, null],
-        //     [constant.COMPUTER_QUEEN, null, constant.PLAYER_KING, null, null],
-        //     [null, null, null, null, constant.COMPUTER_ROOK],
-        //     [constant.PLAYER_ROOK, null, null, null, constant.COMPUTER_KING]
+        //     [constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN],
+        //     [null, null, null, null, null],
+        //     [null, null, null, null, null],
+        //     [constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN],
+        //     [null, null, null, null, null]
         // ];
+
         return board;
     } catch (error) {
         console.log(error);
@@ -48,6 +49,7 @@ function printBoard(board) {
             console.log(line);
         }
         console.log();
+
         return 1;
     } catch (error) {
         console.log(error);
@@ -65,8 +67,8 @@ function printAllMoves(board, allMovesArray) {
 
         let numberOfMoves = 0;
         allMovesArray.forEach(move => {
-            // console.log("Move No= ", ++numberOfMoves);
-            // console.log(move);
+            console.log("Move No= ", ++numberOfMoves);
+            console.log(move);
 
             const temp = board.map(row => [...row]);
 
