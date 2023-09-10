@@ -15,7 +15,6 @@ King c6; Queen d6; Rook a6; Bishop b6; Knight e6; Pawn a5, b5, c5, d5, e5.
 
 ## **Additional Rules**
 * Pawns can only advance one space on their first move. There is no en passant capturing.
-* A pawn can only promote to a captured piece.
 * There is no castling.
 * If 20 moves are played without a capture or promotion, the player with the most `points' on the board wins. (Pawn=1 pt., Bishop/Knight=3, Rook=5, Queen = 9.)
 
