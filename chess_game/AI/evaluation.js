@@ -73,7 +73,7 @@ const BISHOP_VALUE = 330;
 const KNIGHT_VALUE = 320;
 const PAWN_VALUE = 100;
 
-pawnEvalCom = [
+const pawnEvalCom = [
     [0, 0, 0, 0, 0],
     [5, 5, 5, 5, 5],
     [2, 10, 10, 12, 5],
@@ -81,7 +81,7 @@ pawnEvalCom = [
     [50, 50, 50, 50, 50],
     [0, 0, 0, 0, 0]
 ]
-pawnEvalPlayer = [
+const pawnEvalPlayer = [
     [0, 0, 0, 0, 0],
     [50, 50, 50, 50, 50],
     [10, 20, 20, 20, 10],
@@ -90,7 +90,7 @@ pawnEvalPlayer = [
     [0, 0, 0, 0, 0]
 ]
 
-knightEval = [
+const knightEval = [
     [5, 7, 10, 7, 5],
     [10, 15, 20, 15, 10],
     [15, 20, 30, 20, 15],
@@ -99,7 +99,7 @@ knightEval = [
     [5, 7, 10, 7, 5]
 ]
 
-bishopEval = [
+const bishopEval = [
     [5, 7, 10, 7, 5],
     [7, 10, 15, 10, 7],
     [10, 15, 20, 15, 10],
@@ -108,7 +108,7 @@ bishopEval = [
     [5, 7, 10, 7, 5]
 ]
 
-rookEvalCom = [
+const rookEvalCom = [
     [0, 0, 5, 0, 0],
     [-5, 5, 10, 5, -5],
     [-5, 0, 0, 0, -5],
@@ -116,7 +116,7 @@ rookEvalCom = [
     [-5, 0, 0, 0, -5],
     [0, 0, 5, 0, 0]
 ]
-rookEvalPlayer = [
+const rookEvalPlayer = [
     [0, 0, 5, 0, 0],
     [-5, 0, 0, 0, -5],
     [-5, 0, 0, 0, -5],
@@ -125,7 +125,7 @@ rookEvalPlayer = [
     [0, 0, 5, 0, 0],
 ]
 
-queenEvalCom = [
+const queenEvalCom = [
     [-3, -5, -2, -5,  -3],
     [-5, 0, 0, 0,  -5],
     [-2, 5, 0, 5, -2],
@@ -133,7 +133,7 @@ queenEvalCom = [
     [-5, 0, 0, 0,  -5],
     [-3, 4, 4, 4, -3]
 ]
-queenEvalPlayer = [
+const queenEvalPlayer = [
     [-3, 4, 4, 4, -3],
     [-5, 0, 0, 0,  -5],
     [-5, 5, 5, 5, -5],
@@ -142,7 +142,7 @@ queenEvalPlayer = [
     [-3, -5, -2, -5,  -3]
 ]
 
-kingEvalCom = [
+const kingEvalCom = [
     [1,  5, 10, 5, 1],
     [2, 10, 0, 10, 2],
     [3, 10, 10, 10, 3],
@@ -150,7 +150,7 @@ kingEvalCom = [
     [1, 0, 5, 0, 1],
     [0, 0, 1, 0, 0]
 ]
-kingEvalPlayer = [
+const kingEvalPlayer = [
     [0, 0, 1, 0, 0],
     [1, 0, 5, 0, 1],
     [2, 10, 10, 10, 2],
