@@ -12,14 +12,22 @@ let MIN = -9999999;
 
 // assuming that computer want to maximize it's value
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
-function move_by_minimaxApproch(depth, board, maximizingPlayer){
+
+function move_by_minimaxApproch(depth, board, maximizingPlayer) {
     if (depth == 0) {
         return [evaluation.evaluateBoard(board), null];
     }
 
     if (maximizingPlayer) {
-        const allMovesArray = pieces_move.getAllComputersMoves(board);
+        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -53,7 +61,7 @@ function move_by_minimaxApproch(depth, board, maximizingPlayer){
         return [best, finalMove];
     }
     else {
-        const allMovesArray = pieces_move.getAllComputersMoves(board);
+        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -95,7 +103,7 @@ function moveBy_alphaBetaPruningApproch(depth, board, maximizingPlayer, alpha, b
     }
 
     if (maximizingPlayer) {
-        const allMovesArray = pieces_move.getAllComputersMoves(board);
+        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -135,7 +143,7 @@ function moveBy_alphaBetaPruningApproch(depth, board, maximizingPlayer, alpha, b
         return [best, finalMove];
     }
     else {
-        const allMovesArray = pieces_move.getAllComputersMoves(board);
+        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -185,7 +193,7 @@ function getAIMove(board) {
     // console.log(moveBy_alphaBetaPruningApproch(6, board, true, MIN, MAX));
     // endTime = performance.now();
     // console.log(`myFunction took ${endTime - startTime} milliseconds.`);
-    
+
     // return move_by_minimaxApproch(constant.MAXIMUM_DEPTH, board, true)[1];
     return moveBy_alphaBetaPruningApproch(constant.MAXIMUM_DEPTH, board, true, MIN, MAX)[1];
 }
