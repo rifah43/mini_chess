@@ -101,7 +101,6 @@ function makeMove() {
         if (board[currentY][currentX] == chess_game.constant.COMPUTER_PAWN && nextY == chess_game.constant.BOARD_LENGTH-1) {
             board[nextY][nextX] = chess_game.constant.COMPUTER_QUEEN;
             document.getElementById(id1).innerHTML = getPieceIcon(board[nextY][nextX]);
-            console.log("hello")
         }
         else {
             board[nextY][nextX] = board[currentY][currentX];
