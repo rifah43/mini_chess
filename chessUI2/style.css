@@ -1,0 +1,42 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.chessboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    width: 500px;
+    height: 600px;
+}
+
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #514e4e;
+}
+
+.square:nth-child(even) {
+    background-color: #665d5d;
+}
+
+.square button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 4.5rem;
+}
+
+.square button:focus {
+    outline: none;
+}

@@ -11,6 +11,8 @@ import * as kingsSafety from './moveFunction/kingsSafety.js'
 import * as constant from './constant.js'
 import * as checkMateChecker from './checkMateChecker.js'
 import * as aiMove from './AI/aiMove.js'
+import * as check_pieces from './moveFunction/check_pieces.js'
+
 
 const initializeBoard = Board.initialize;
 const printAllMoves = Board.printAllMoves;
@@ -45,5 +47,6 @@ export{
     isItCheck,
     isItCheckMate,
     computersNextMove,
-    constant
+    constant,
+    check_pieces
 };
