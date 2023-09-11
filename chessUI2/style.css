@@ -62,3 +62,31 @@ body {
 .square button:focus {
     outline: none;
 }
+
+#restart-button,
+#quit-button {
+    margin: 0 10px;
+}
+
+#restart-button {
+    display: block;
+    margin: 10px auto; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    background-color: #514e4e; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#restart-button:hover {
+    background-color: #c6e8ff;
+    color: rgb(0, 0, 0); 
+}
+.buttons {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px;
+}
