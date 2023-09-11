@@ -18,12 +18,12 @@ function initialize() {
 
         //for Demo checking
         // board = [
-        //     [null, null, null, constant.COMPUTER_KING, null],
-        //     [constant.PLAYER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN, constant.COMPUTER_PAWN],
         //     [null, null, null, null, null],
+        //     [null, null, null, constant.PLAYER_KING, null],
         //     [null, null, null, null, null],
-        //     [constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.PLAYER_PAWN, constant.COMPUTER_PAWN],
-        //     [null, null,constant.PLAYER_KING, null, null]
+        //     [null, constant.PLAYER_BISHOP, null, null, null],
+        //     [constant.PLAYER_PAWN, constant.COMPUTER_KING, null, constant.PLAYER_KING, null],
+        //     [null, null, null, null, constant.PLAYER_PAWN]
         // ];
 
         return board;

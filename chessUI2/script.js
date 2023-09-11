@@ -25,7 +25,7 @@ function startGame() {
 
 function makeMove() {
     clearValidMoveSquares()
-    if(!nowPlaysTurn) return;
+    if (!nowPlaysTurn) return;
 
     let elementById = this.id;
     let isItA_move = false;
@@ -76,57 +76,59 @@ function makeMove() {
         }
 
         let allPossibleMoves = chess_game.getAllMovesForA_Position(board, positionY, positionX)
-        
-        if(allPossibleMoves == null) {
+
+        if (allPossibleMoves == null) {
             lastSelectedMoves = [];
         }
-        else{
+        else {
             lastSelectedMoves = allPossibleMoves;
             highlightValidMoveSquares(allPossibleMoves);
         }
     }
 
     // Now it's Computer's turn to make a Move
-    if(!nowPlaysTurn) {
-        nowPlaysTurn = !nowPlaysTurn;
-        let move = chess_game.computersNextMove(board);
-        let currentY = move.currentPosition.y;
-        let currentX = move.currentPosition.x;
-        let nextY = move.nextPosition.y;
-        let nextX = move.nextPosition.x;
-
-        let id1 = "r" + nextY + "c" + nextX;
-        let id2 = "r" + currentY + "c" + currentX;
-
-        if (board[currentY][currentX] == chess_game.constant.COMPUTER_PAWN && nextY == chess_game.constant.BOARD_LENGTH-1) {
-            board[nextY][nextX] = chess_game.constant.COMPUTER_QUEEN;
-            document.getElementById(id1).innerHTML = getPieceIcon(board[nextY][nextX]);
-        }
-        else {
-            board[nextY][nextX] = board[currentY][currentX];
-            document.getElementById(id1).innerHTML = document.getElementById(id2).innerHTML;
-        }
-
-        board[currentY][currentX] = null;
-        document.getElementById(id2).innerHTML = '';
-        console.log(board)
-
-        if (chess_game.isItCheckMate(board, chess_game.constant.PLAYER_KING)) {
-            nowPlaysTurn = !nowPlaysTurn;       // so that player can't  his/her move during this 500 milisecond
-            setTimeout(function () {
-                alert("Alas!!! You lost the game...."); 
-                location.reload();
-            }, 500);
-        }
-        else if(chess_game.isItCheck(board, chess_game.constant.PLAYER_KING)[0]) {
-            nowPlaysTurn = !nowPlaysTurn;       // so that player can't  his/her move during this 500 milisecond
-            setTimeout(function () {
-                alert('Your King is on "Check"'); 
-            }, 400);
+    setTimeout(function () {
+        if (!nowPlaysTurn) {
             nowPlaysTurn = !nowPlaysTurn;
-        }
+            let move = chess_game.computersNextMove(board);
+            let currentY = move.currentPosition.y;
+            let currentX = move.currentPosition.x;
+            let nextY = move.nextPosition.y;
+            let nextX = move.nextPosition.x;
 
-    }
+            let id1 = "r" + nextY + "c" + nextX;
+            let id2 = "r" + currentY + "c" + currentX;
+
+            if (board[currentY][currentX] == chess_game.constant.COMPUTER_PAWN && nextY == chess_game.constant.BOARD_LENGTH - 1) {
+                board[nextY][nextX] = chess_game.constant.COMPUTER_QUEEN;
+                document.getElementById(id1).innerHTML = getPieceIcon(board[nextY][nextX]);
+            }
+            else {
+                board[nextY][nextX] = board[currentY][currentX];
+                document.getElementById(id1).innerHTML = document.getElementById(id2).innerHTML;
+            }
+
+            board[currentY][currentX] = null;
+            document.getElementById(id2).innerHTML = '';
+            console.log(board)
+
+            if (chess_game.isItCheckMate(board, chess_game.constant.PLAYER_KING)) {
+                nowPlaysTurn = !nowPlaysTurn;       // so that player can't  his/her move during this 500 milisecond
+                setTimeout(function () {
+                    alert("Alas!!! You lost the game....");
+                    location.reload();
+                }, 500);
+            }
+            else if (chess_game.isItCheck(board, chess_game.constant.PLAYER_KING)[0]) {
+                nowPlaysTurn = !nowPlaysTurn;       // so that player can't  his/her move during this 500 milisecond
+                setTimeout(function () {
+                    alert('Your King is on "Check"');
+                }, 400);
+                nowPlaysTurn = !nowPlaysTurn;
+            }
+
+        }
+    }, 700);
 
 }
 
