@@ -1,6 +1,6 @@
 const BOARD_WIDTH = 5;
 const BOARD_LENGTH = 6;
-const MAXIMUM_DEPTH = 4;
+const MAXIMUM_DEPTH = 6;
 const CHECK_VALUE_IN_EVALUTION = 20;
 const PLAYER_PAWN = 'p_pa';
 const COMPUTER_PAWN = 'c_pa';
