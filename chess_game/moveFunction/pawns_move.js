@@ -5,7 +5,6 @@
 import * as check_pieces from './check_pieces.js';
 import * as constant from '../constant.js';
 import * as kingsSafety from './kingsSafety.js';
-import { changePawnToQueen } from '../../chessUI/pawnChange.js';
 
 
 function move(board, positionY, positionX) {

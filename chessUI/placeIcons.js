@@ -1,45 +1,98 @@
-function setPieceIcon(piece, pieceId) {
-  switch (pieceId) {
-    case "white_pawn":
-      piece.textContent = "♙";
-      break;
-    case "white_rook":
-      piece.textContent = "♖";
-      break;
-    case "white_knight":
-      piece.textContent = "♘";
-      break;
-    case "white_bishop":
-      piece.textContent = "♗";
-      break;
-    case "white_queen":
-      piece.textContent = "♕";
-      break;
-    case "white_king":
-      piece.textContent = "♔";
-      break;
-    case "black_pawn":
-      piece.textContent = "♟";
-      break;
-    case "black_rook":
-      piece.textContent = "♜";
-      break;
-    case "black_knight":
-      piece.textContent = "♞";
-      break;
-    case "black_bishop":
-      piece.textContent = "♝";
-      break;
-    case "black_queen":
-      piece.textContent = "♛";
-      break;
-    case "black_king":
-      piece.textContent = "♚";
-      break;
-    default:
-      piece.textContent = "NULL";
-      break;
-  }
+import * as chess_game from '../chess_game/chess_game.js';
+
+function getPieceIcon(piece) {
+    let constant = chess_game.constant;
+    let icon;
+    switch (piece) {
+        case constant.PLAYER_PAWN:
+            icon = "♙";
+            break;
+        case constant.PLAYER_ROOK:
+            icon = "♖";
+            break;
+        case constant.PLAYER_KNIGHT:
+            icon = "♘";
+            break;
+        case constant.PLAYER_BISHOP:
+            icon = "♗";
+            break;
+        case constant.PLAYER_QUEEN:
+            icon = "♕";
+            break;
+        case constant.PLAYER_KING:
+            icon = "♔";
+            break;
+        case constant.COMPUTER_PAWN:
+            icon = "♟";
+            break;
+        case constant.COMPUTER_ROOK:
+            icon = "♜";
+            break;
+        case constant.COMPUTER_KNIGHT:
+            icon = "♞";
+            break;
+        case constant.COMPUTER_BISHOP:
+            icon = "♝";
+            break;
+        case constant.COMPUTER_QUEEN:
+            icon = "♛";
+            break;
+        case constant.COMPUTER_KING:
+            icon = "♚";
+            break;
+        default:
+            icon = 'n';
+    }
+
+    return icon;
 }
 
-export { setPieceIcon };
+
+function getPiecesName(icon) {
+    let constant = chess_game.constant;
+    let pieceName;
+    switch (icon) {
+        case  "♙":
+            pieceName = constant.PLAYER_PAWN;
+            break;
+        case "♖":
+            pieceName = constant.PLAYER_ROOK;
+            break;
+        case "♘":
+            pieceName = constant.PLAYER_KNIGHT;
+            break;
+        case "♗":
+            pieceName = constant.PLAYER_BISHOP;
+            break;
+        case "♕":
+            pieceName = constant.PLAYER_QUEEN;
+            break;
+        case "♔":
+            pieceName = constant.PLAYER_KING;
+            break;
+        case "♟":
+            pieceName = constant.COMPUTER_PAWN;
+            break;
+        case "♜":
+            pieceName = constant.COMPUTER_ROOK;
+            break;
+        case "♞":
+            pieceName = constant.COMPUTER_KNIGHT;
+            break;
+        case "♝":
+            pieceName = constant.COMPUTER_BISHOP;
+            break;
+        case "♛":
+            pieceName = constant.COMPUTER_QUEEN;
+            break;
+        case "♚":
+            pieceName = constant.COMPUTER_KING;
+            break;
+        default:
+            pieceName = null;
+    }
+
+    return pieceName;
+}
+
+export { getPieceIcon, getPiecesName };

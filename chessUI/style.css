@@ -1,82 +1,66 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.board {
-    display: grid;
-    grid-template-columns: repeat(5, 90px);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 453px;
-    height: 543px;
-    border: 2px solid rgb(0, 0, 0);
-}
-.square {
-    font-size: 4rem;
+body {
     display: flex;
     justify-content: center;
-    align-items: center; 
-    height: 90px;
-    width: 90px;
-    background-color: rgb(235, 254, 226);
-    border: 1px solid rgb(0, 0, 0);
-    position: relative;
-}
-.square:hover {
-    background-color: rgb(237, 230, 165);
-    cursor:pointer;
-}
-
-.piece {
-    font-size: 4rem;
-}
-
-.numbers {
-    position: absolute;
-    display: flex;
-    flex-direction: column-reverse;
     align-items: center;
-    justify-content: space-around;
-    height: 543px;
-    width: 57px;
-    left: -50px;
-    font-size: 1rem;
-    font-weight: bold;
-    list-style: none;
-    color: rgb(115, 2, 2);
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-.letters {
-    position: absolute;
+.div1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.chessboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+@media (max-width: 399px) {
+    .chessboard {
+        width: 100vw;
+        height: 120vw;
+    }
+    .square button {
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width: 400px) {
+    .chessboard {
+        width: 500px;
+        height: 600px;
+    }
+
+    .square button {
+        font-size: 4.5rem;
+    }
+}
+
+.square {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    height: 57px;
-    width: 453px;
-    left: 0px;
-    bottom: -50px;
-    font-size: 1rem;
-    font-weight: bold;
-    list-style: none;
-    color: rgb(115, 2, 2);
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #514e4e;
 }
 
-.black {
-    background-color: rgb(202, 33, 33);
-}
-.black:hover {
-    background-color: rgb(255, 92, 92);
+.square:nth-child(even) {
+    background-color: #665d5d;
 }
 
-.buttons {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin-top: 20px;
+.square button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.square button:focus {
+    outline: none;
 }
 
 #restart-button,
@@ -89,7 +73,7 @@
     margin: 10px auto; 
     padding: 10px 20px; 
     font-size: 16px;
-    background-color: #e00572; 
+    background-color: #514e4e; 
     color: white; 
     border: none;
     cursor: pointer;
@@ -97,23 +81,12 @@
 }
 
 #restart-button:hover {
-    background-color: #e3f4ff;
+    background-color: #c6e8ff;
     color: rgb(0, 0, 0); 
 }
-
-#quit-button {
-    display: block;
-    margin: 10px auto; 
-    padding: 10px 20px; 
-    font-size: 16px;
-    background-color: #e00572; 
-    color: white; 
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#quit-button:hover {
-    background-color: #e3f4ff;
-    color: rgb(0, 0, 0); 
+.buttons {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px;
 }
