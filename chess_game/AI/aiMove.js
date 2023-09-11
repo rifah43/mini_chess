@@ -27,7 +27,10 @@ function move_by_minimaxApproch(depth, board, maximizingPlayer) {
     }
 
     if (maximizingPlayer) {
-        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
+        const allMovesArray = pieces_move.getAllComputersMoves(board);
+        if(allMovesArray != null &&  allMovesArray.length > 1) {
+            allMovesArray = shuffle(allMovesArray);
+        }
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -61,7 +64,11 @@ function move_by_minimaxApproch(depth, board, maximizingPlayer) {
         return [best, finalMove];
     }
     else {
-        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
+        const allMovesArray = pieces_move.getAllPlayersMoves(board);
+        if(allMovesArray != null &&  allMovesArray.length > 1) {
+            allMovesArray = shuffle(allMovesArray);
+        }
+
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -103,7 +110,11 @@ function moveBy_alphaBetaPruningApproch(depth, board, maximizingPlayer, alpha, b
     }
 
     if (maximizingPlayer) {
-        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
+        let allMovesArray = pieces_move.getAllComputersMoves(board);
+        if(allMovesArray != null &&  allMovesArray.length > 1) {
+            allMovesArray = shuffle(allMovesArray);
+        }
+
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
@@ -143,7 +154,11 @@ function moveBy_alphaBetaPruningApproch(depth, board, maximizingPlayer, alpha, b
         return [best, finalMove];
     }
     else {
-        const allMovesArray = shuffle(pieces_move.getAllComputersMoves(board));
+        let allMovesArray = pieces_move.getAllPlayersMoves(board);
+        if(allMovesArray != null &&  allMovesArray.length > 1) {
+            allMovesArray = shuffle(allMovesArray);
+        }
+
         if (allMovesArray == null) {
             // As it will be checkmate for the computer and it will lose the game
             return MIN;
