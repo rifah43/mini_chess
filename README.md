@@ -18,3 +18,6 @@ King c6; Queen d6; Rook a6; Bishop b6; Knight e6; Pawn a5, b5, c5, d5, e5.
 * There is no castling.
 * If 20 moves are played without a capture or promotion, the player with the most `points' on the board wins. (Pawn=1 pt., Bishop/Knight=3, Rook=5, Queen = 9.)
 
+
+Click here to play the game:
+https://nimble-panda-66fd1c.netlify.app/
